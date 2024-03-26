@@ -167,19 +167,12 @@ if(function_exists("register_options_page"))
 
 function crossword_rating()
 {
- global $wpdb;
-// текущий id пользователя
-$user_id_sinevo = get_current_user_id();
-	
-$user_t = wp_get_current_user();
-if ( in_array( 'subscriber', $user_t->roles ) || in_array( 'administrator', $user_t->roles ) ) {
-	
-            //global $wpdb;
+            global $wpdb;
 			//global $all_rating;
             // custom_field_7 - рейтинг за регитсрацию
             $key = 'custom_field_7';
         	// текущий id пользователя
-            //$user_id_sinevo = get_current_user_id();
+            $user_id_sinevo = get_current_user_id();
             // массив всех данных пользователя
             $user_info = get_userdata($user_id_sinevo);
             //таблица рефералов
@@ -205,9 +198,6 @@ if ( in_array( 'subscriber', $user_t->roles ) || in_array( 'administrator', $use
             // если реферы есть 
             if($ref_count){ 
                 //echo 'Ref_1: ' .$ref_count. '<br>';
-				
-				//if ($user_id_sinevo == 359) { echo 'количество рефералов: ' .$ref_count. '<br>';} 
-				
                 $result = $wpdb->get_results("SELECT * FROM  $table WHERE affp_referral = '$user_info->user_login'");
                 
                 $i=0;
@@ -218,8 +208,6 @@ if ( in_array( 'subscriber', $user_t->roles ) || in_array( 'administrator', $use
                     foreach($result as $ref_1)
                     {
                     $user_info_ref = get_userdata($ref_1->affp_id );
-					
-					//if ($user_id_sinevo == 359) { echo 'Реф 1ой линии - логин: '.$user_info_ref->user_login . ' --> id: ' . $ref_1->affp_id . '<br>';}
                     //список рефрево первой линии
                     //echo 'логин: '.$user_info_ref->user_login . ' --> id: ' . $ref_1->affp_id . '<br>';
 
@@ -229,7 +217,6 @@ if ( in_array( 'subscriber', $user_t->roles ) || in_array( 'administrator', $use
                                             $i++;
                                              update_user_meta($user_id_sinevo, 'cross_r1_'.$i , $cross_r1);
                                              $cross_r1_all=get_user_meta($user_id_sinevo, cross_r1_.$i, true )+$cross_r1_all;
-											 //if ($user_id_sinevo == 359) { echo 'баллы за Реф 1ой линии : '. $cross_r1_all . '<br>';}
                                             } 
 // end cross_1 -------------------------------------------------
 
@@ -242,8 +229,6 @@ if ( in_array( 'subscriber', $user_t->roles ) || in_array( 'administrator', $use
                          foreach($result_2 as $ref_2)
                         {
                         $user_info_ref_2 = get_userdata($ref_2->affp_id );
-						
-						//if ($user_id_sinevo == 359) { echo '_'.'Реф 2ой линии - логин:'. $user_info_ref_2->user_login . ' --> id:' . $ref_2->affp_id . '<br>';} 
                         //список рефрево второй линии 
                         //echo '_'.'ref_2 = логин:'. $user_info_ref_2->user_login . ' --> id:' . $ref_2->affp_id . '<br>';
 
@@ -256,7 +241,6 @@ if ( in_array( 'subscriber', $user_t->roles ) || in_array( 'administrator', $use
                                             $ii++;
                                             update_user_meta($user_id_sinevo, 'cross_r2_'.$ii , $cross_r2);
                                             $cross_r2_all=get_user_meta($user_id_sinevo, cross_r2_.$ii, true )+$cross_r2_all;
-											//if ($user_id_sinevo == 359) { echo 'баллы за Реф 2ой линии : '.$cross_r2_all . '<br>';}
                                             } 
  // end cross_2 ---- --------------------------------------------
  // end ref_2 ------------------------------------------------------------------------------
@@ -267,8 +251,6 @@ if ( in_array( 'subscriber', $user_t->roles ) || in_array( 'administrator', $use
                             foreach($result_3 as $ref_3)
                             {
                             $user_info_ref_3 = get_userdata($ref_3->affp_id );
-							
-							//if ($user_id_sinevo == 359) { echo '__Реф 3ей линии - логин: '. $user_info_ref_3->user_login . ' --> id:' . $ref_3->affp_id . '<br>';} 
                             //список рефрево третей линии  
                             //echo 'ref_3= логин: '. $user_info_ref_3->user_login . ' --> id:' . $ref_3->affp_id . '<br>';
 
@@ -279,7 +261,6 @@ if ( in_array( 'subscriber', $user_t->roles ) || in_array( 'administrator', $use
                                             	  $iii++;
                                              		update_user_meta($user_id_sinevo, 'cross_r3_'.$iii , $cross_r3);
                                              		$cross_r3_all=get_user_meta($user_id_sinevo, cross_r3_.$iii, true )+$cross_r3_all;
-													//if ($user_id_sinevo == 359) { echo 'баллы за Реф 3ой линии : '.$cross_r3_all . '<br>';}
                                               } 
                                             
 // cross_3 ----------------------------------------------------
@@ -345,13 +326,7 @@ if ( in_array( 'subscriber', $user_t->roles ) || in_array( 'administrator', $use
             //echo 'всего  балов: ' . $all_rating. '<br>'; 
 			
 
-
-return $all_rating;
-
-} else if ( in_array( 'contributor', $user_t->roles ) ) {
-	update_user_meta($user_id_sinevo, 'all_rating', 0); $all_rating =0; return $all_rating;
-}
-           
+return $all_rating;           
 }
 
 // ***********************************************************
@@ -438,69 +413,6 @@ update_user_meta($user_id_sinevo, 'check_1', 'ждет проверки');
 //echo $check;
 }
 
-
-//--------------------------------------
-// udate check cross 
-
-
-
-$ff = intval($_POST['ff']) ;
-
-if ($ff == 1) {	
-
-	$current = get_user_meta( 1, 'current', true );
-	
-	if ((select_crossword()== 1)) {
-	update_user_meta($current, 'cross_1', 50);
-	update_user_meta($current, 'check_1', 'проверен');
-	
-	//$all = get_user_meta( $current, 'all_rating', true );
-	//update_user_meta($current, 'all_rating_admin', $all+50);
-	
-	} else
-	if ((select_crossword()== 2)) {
-	update_user_meta($current, 'cross_2', 50);
-	update_user_meta($current, 'check_2', 'проверен 2');
-	//$all = get_user_meta( $current, 'all_rating', true );
-	//update_user_meta($current, 'all_rating_admin', $all+50);
-	}
-	else
-	if ((select_crossword()== 3)) {
-	update_user_meta($current, 'cross_3', 50);
-	update_user_meta($current, 'check_3', 'проверен 3');
-	//$all = get_user_meta( $current, 'all_rating', true );
-	//update_user_meta($current, 'all_rating_admin', $all+50);
-	}
-	
-
-}
-// udate check  word 1
-//global $user_cur;
-$ft = intval($_POST['ft']) ;
-
-if ($ft == 1) {	
-
-	$current = get_user_meta( 1, 'current', true );
-	
-	if ((select_crossword()== 1)) {
-	update_user_meta($current, 'word_rating_1', 20);
-	update_user_meta($current, 'check_1', 'проверен');
-	} else
-	if ((select_crossword()== 2)) {
-	update_user_meta($current, 'word_rating_2', 20);
-	update_user_meta($current, 'check_2', 'проверен 2');
-	}
-	else
-	if ((select_crossword()== 3)) {
-	update_user_meta($current, 'word_rating_3', 20);
-	update_user_meta($current, 'check_3', 'проверен 3');
-	}
-	
-	
-		
-	 
-}
-//-------------------------------------------------------------
 
 $whatever = 0;
 $whatever_c =0;
@@ -597,8 +509,7 @@ function cmp( $a, $b )
 } 
 
 $args = array(
-'meta_key' => 'all_rating',
-'role'     => 'subscriber'
+'meta_key' => 'all_rating'
 );
 
 $blogusers = get_users($args);
@@ -631,8 +542,7 @@ function cmp_2( $a, $b )
 } 
 
 $args = array(
-'meta_key' => 'priz_2',
-'role'     => 'subscriber'
+'meta_key' => 'priz_2'
 );
 
 $blogusers = get_users($args);
@@ -666,8 +576,7 @@ function cmp_3( $a, $b )
 } 
 
 $args = array(
-'meta_key' => 'all_rating',
-'role'     => 'subscriber'
+'meta_key' => 'all_rating'
 );
 
 $blogusers = get_users($args);

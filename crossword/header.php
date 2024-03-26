@@ -63,9 +63,10 @@
 <!--[if lte IE 9]>
 <style type="text/css">
 #user_reg input[type="submit"] {
-  margin-left: 10px !important;
+  margin-left: 20px !important;
 }
 .prompt{ letter-spacing: 1px;}
+.invit_left2 input { width: 190px;}
 </style>
 <![endif]-->
 
@@ -107,6 +108,7 @@ var MyJ = jQuery;
 
 <script src="<?php echo get_template_directory_uri(); ?>/js/jquery.qtip.js"></script>
  
+<script src="<?php echo get_template_directory_uri(); ?>/js/new.js"></script> 
  
 
 
@@ -169,11 +171,11 @@ var MyJ = jQuery;
             <div class="user_reff_1">
             	
                 <div id="button_reff">
-                <?php echo do_shortcode('[formlightbox_call title="Contact Me #1" class="4"]Пригласить коллегу[/formlightbox_call]'); ?>
+                <?php echo do_shortcode('[formlightbox_call title="Пригласить коллегу" class="4"]Пригласить коллегу[/formlightbox_call]'); ?>
             	
                 </div> 
-                <!--<p class="prompt">+10 баллов пригласившему</p>
-            		<p class="prompt">+5 баллов приглашённому</p>-->
+                <!--<p class="prompt">+10 баллов пригласившему</p>-->
+            	<p class="prompt invit">Получайте бонусы за каждого приглашенного</p>
         	 
         	</div>
             

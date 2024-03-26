@@ -56,7 +56,6 @@
 				$(helpValue).val(all_minus/5);
 				var j = 0;
 				var sword = [];
-				var actee = [];
 			
 			// initialize some variables
 			var tbl = ['<table id="puzzle">'],
@@ -353,8 +352,7 @@
 						.join('');
 				
 					
-    				console.log(currVal);
-					console.log(valToCheck);
+    				//console.log(currVal);
 					console.log(activePosition);
 					//console.log(valToCheck.length);
 					//console.log(currVal.length);
@@ -425,17 +423,9 @@
 						solvedToggle = true;
 						
 						// считаем отгаданные слова
-						if ( activePosition != actee[1] && activePosition != actee[2] && activePosition != actee[3] && activePosition != actee[4] && activePosition != actee[5] && activePosition != actee[6] && activePosition != actee[7] && activePosition != actee[8] && activePosition != actee[9] && activePosition != actee[10] && activePosition != actee[11] && activePosition != actee[12] && activePosition != actee[13] && activePosition != actee[14] && activePosition != actee[15] && activePosition != actee[16] && activePosition != actee[17] && activePosition != actee[18] && activePosition != actee[19] && activePosition != actee[20])
-						{
 						meter++;
-						actee[meter] = activePosition;
-					    }
-						
-						console.log('массив' + actee);
-						//console.log('массив -1 ' + actee[1]);
-						//console.log('массив -2 ' + actee[2]);
 						console.log('количество разгаданных слов: ' + meter);
-						
+			
 			 
 //------------- если ввели контрольное словоправильно		
 			if((currVal=='аггравация') && (slovo == 0)){
@@ -456,7 +446,7 @@
 				data,
 				function(response) {
 				//alert('reyting: ' + response);
-				$('#message_word').text('Поздравляю! Вы разгадали контрольное слово и вам начисленно 20 баллов.');
+				$('#message_word').text('Поздравляю! Вы разгадали контрольное слово. Нажмите кнопку готово чтобы отправить администратору на проверку.');
 				
 				
 				
@@ -485,34 +475,33 @@
 				object_crossword.ajaxurl,
 				data,
 				function(response) {
-				//alert('кроссворд разгадан: ' + response);
+				//alert('reyting_c: ' + response);
 	// коллбэки то что будем делать если кроссворд разгадан
 	
 				//добавляем сообщение
 				
-				$('#message_crossword').html('Поздравляю! Вы разгадали кроссворд. Вам начислено 50 баллов.');	
+				$('#message_crossword').html('Поздравляю! Вы разгадали кроссворд.<br> Нажмите кнопку готово<br> чтобы отправить администратору на проверку.');	
 				
 				//добавляем кнопку готово
 				//$('#message_button').removeClass('buttonnone');
 				//убираем кнопки подсказки
 				$('#tip_button').addClass('buttonnone');
 				$('#tip_crossword .prompt').addClass('buttonnone');
-				$('#status_true').css('display','none');
 				
 				// назначаем шинину для qtip2
 				//$('.qtip').css({'max-width' : '354px'});
 				
 				// обновляем рейтин в шапке, 
-				$('.rating').text(response);
+				//$('.rating').text(response);
 				// закрываем кроссворд для редактирования
-				$('#puzzle input').prop('disabled', true);
+				//$('#puzzle input').prop('disabled', true);
 				
 				});
 //-----------------------------------------------------	
 			}
 			
 			//console.log(' рейтинг ' + reyting);			
-			console.log(' счетчик ' + meter);			
+			//console.log(' счетчик ' + meter);			
 						
 						
 			//console.log(currVal[4]);

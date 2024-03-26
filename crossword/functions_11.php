@@ -167,19 +167,16 @@ if(function_exists("register_options_page"))
 
 function crossword_rating()
 {
- global $wpdb;
-// текущий id пользователя
-$user_id_sinevo = get_current_user_id();
 	
 $user_t = wp_get_current_user();
 if ( in_array( 'subscriber', $user_t->roles ) || in_array( 'administrator', $user_t->roles ) ) {
 	
-            //global $wpdb;
+            global $wpdb;
 			//global $all_rating;
             // custom_field_7 - рейтинг за регитсрацию
             $key = 'custom_field_7';
         	// текущий id пользователя
-            //$user_id_sinevo = get_current_user_id();
+            $user_id_sinevo = get_current_user_id();
             // массив всех данных пользователя
             $user_info = get_userdata($user_id_sinevo);
             //таблица рефералов
@@ -348,7 +345,7 @@ if ( in_array( 'subscriber', $user_t->roles ) || in_array( 'administrator', $use
 
 return $all_rating;
 
-} else if ( in_array( 'contributor', $user_t->roles ) ) {
+} else if ( in_array( 'Contributor', $user_t->roles ) ) {
 	update_user_meta($user_id_sinevo, 'all_rating', 0); $all_rating =0; return $all_rating;
 }
            
@@ -597,8 +594,7 @@ function cmp( $a, $b )
 } 
 
 $args = array(
-'meta_key' => 'all_rating',
-'role'     => 'subscriber'
+'meta_key' => 'all_rating'
 );
 
 $blogusers = get_users($args);
@@ -631,8 +627,7 @@ function cmp_2( $a, $b )
 } 
 
 $args = array(
-'meta_key' => 'priz_2',
-'role'     => 'subscriber'
+'meta_key' => 'priz_2'
 );
 
 $blogusers = get_users($args);
@@ -666,8 +661,7 @@ function cmp_3( $a, $b )
 } 
 
 $args = array(
-'meta_key' => 'all_rating',
-'role'     => 'subscriber'
+'meta_key' => 'all_rating'
 );
 
 $blogusers = get_users($args);

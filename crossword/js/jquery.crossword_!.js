@@ -55,8 +55,6 @@
 				var all_minus = object_crossword.all_minus;
 				$(helpValue).val(all_minus/5);
 				var j = 0;
-				var sword = [];
-				var actee = [];
 			
 			// initialize some variables
 			var tbl = ['<table id="puzzle">'],
@@ -334,14 +332,7 @@
 					valToCheck = puzz.data[activePosition].answer.toLowerCase();
 					
 					//console.log(valToCheck[1]);
-					mycurrVal = $('.position-' + activePosition + ' input').map(function() {
-					  		return $(this)
-								.val()
-								.toLowerCase();
-								//console.log(currVal);
-						})
-						.get();
-						
+
 					currVal = $('.position-' + activePosition + ' input')
 						.map(function() {
 					  		return $(this)
@@ -353,64 +344,7 @@
 						.join('');
 				
 					
-    				console.log(currVal);
-					console.log(valToCheck);
-					console.log(activePosition);
-					//console.log(valToCheck.length);
-					//console.log(currVal.length);
-					//console.log(mycurrVal[4]);
-				if((activePosition ==3) || (activePosition ==5) ){$('.entry-21 input:first').val(mycurrVal[4]); sword[0]=mycurrVal[4];}
-				if((activePosition ==8)){ $('.entry-21 input:eq(7)').val(mycurrVal[0]); $('.entry-21 input:eq(1)').val(mycurrVal[6]); sword[1]=mycurrVal[6]; sword[7]=mycurrVal[0];}
-				if((activePosition ==9)){ $('.entry-21 input:eq(8)').val(mycurrVal[8]); sword[8]=mycurrVal[8];}
-				if((activePosition ==12)){ $('.entry-21 input:eq(1)').val(mycurrVal[0]); sword[1]=mycurrVal[0];}
-				if((activePosition ==10)){ $('.entry-21 input:eq(6)').val(mycurrVal[7]); sword[6]=mycurrVal[7];}
-				if((activePosition ==16)){ $('.entry-21 input:eq(5)').val(mycurrVal[4]); sword[5]=mycurrVal[4];}
-				if((activePosition ==17)){ $('.entry-21 input:eq(3)').val(mycurrVal[4]); sword[3]=mycurrVal[4];}
-				if((activePosition ==18)){ $('.entry-21 input:eq(3)').val(mycurrVal[2]); sword[3]=mycurrVal[2];}
-				if((activePosition ==19)){ $('.entry-21 input:eq(2)').val(mycurrVal[4]); sword[2]=mycurrVal[4]; }
-				if((activePosition ==4)){ $('.entry-21 input:eq(9)').val(mycurrVal[17]); sword[9]=mycurrVal[17];}
-				if((activePosition ==6)){ $('.entry-21 input:eq(4)').val(mycurrVal[7]); sword[4]=mycurrVal[7];}
-				console.log(sword[0]+sword[1]+sword[2]+sword[3]+sword[4]+sword[5]+sword[6]+sword[7]+sword[8]+sword[9]);
-				console.log(sword);
-				
-				if (( activePosition != 0) && ( activePosition != 1) && ( activePosition != 2) && ( activePosition != 7)  && ( activePosition != 11)  && ( activePosition != 13)  && ( activePosition != 14)  && ( activePosition != 15))
-				{//alert(sword);
-				//------------- ajax  -----------------------------------			
-				var data = {
-						action: 'my_action',
-						sword: sword      // We pass php values differently!
-						//vall: vall
-							};
-				// We can also pass the url value separately from ajaxurl for front end AJAX implementations
-				jQuery.post(
-				object_crossword.ajaxurl,
-				data,
-				function(response) {
-				//alert('sword: ' + response);
-				
-				});
-				}	
-				//-------------
-				
-				if (valToCheck.length == currVal.length ) {
-					pos = activePosition;
-					vall = currVal;
-//------------- ajax  -----------------------------------			
-				var data = {
-						action: 'my_action',
-						pos: pos,      // We pass php values differently!
-						vall: vall
-							};
-				// We can also pass the url value separately from ajaxurl for front end AJAX implementations
-				jQuery.post(
-				object_crossword.ajaxurl,
-				data,
-				function(response) {
-				//alert('vall: ' + response);
-				
-				});
-//-----------------------------------------------------
-				}
+    		
 
 					
 					if(valToCheck === currVal){	
@@ -419,31 +353,21 @@
 							.removeClass('active');
 					
 						$('.clues-active').addClass('clue-done');
-						//$('.done').prop('disabled', true);	
 
 						solved.push(valToCheck);
 						solvedToggle = true;
 						
 						// считаем отгаданные слова
-						if ( activePosition != actee[1] && activePosition != actee[2] && activePosition != actee[3] && activePosition != actee[4] && activePosition != actee[5] && activePosition != actee[6] && activePosition != actee[7] && activePosition != actee[8] && activePosition != actee[9] && activePosition != actee[10] && activePosition != actee[11] && activePosition != actee[12] && activePosition != actee[13] && activePosition != actee[14] && activePosition != actee[15] && activePosition != actee[16] && activePosition != actee[17] && activePosition != actee[18] && activePosition != actee[19] && activePosition != actee[20])
-						{
 						meter++;
-						actee[meter] = activePosition;
-					    }
 						
-						console.log('массив' + actee);
-						//console.log('массив -1 ' + actee[1]);
-						//console.log('массив -2 ' + actee[2]);
-						console.log('количество разгаданных слов: ' + meter);
-						
+			
 			 
 //------------- если ввели контрольное словоправильно		
 			if((currVal=='аггравация') && (slovo == 0)){
 				reyting = 20;
 				meter--;
 				slovo = 1;
-				// закрываем разгаданное слово
-				//$('.entry-21 input').prop('disabled', true);
+				$('.entry-21 input').prop('disabled', true);
 //------------- ajax  -----------------------------------			
 				var data = {
 						action: 'my_action',
@@ -485,20 +409,18 @@
 				object_crossword.ajaxurl,
 				data,
 				function(response) {
-				//alert('кроссворд разгадан: ' + response);
+				//alert('reyting_c: ' + response);
 	// коллбэки то что будем делать если кроссворд разгадан
 	
 				//добавляем сообщение
 				
-				$('#message_crossword').html('Поздравляю! Вы разгадали кроссворд. Вам начислено 50 баллов.');	
+				$('#message_crossword').html('Поздравляю! Вы разгадали кроссворд.<br> Вам начисленно 50 баллов. Нажмите кнопку готово<br> чтобы отправить администратору на проверку.');	
 				
 				//добавляем кнопку готово
-				//$('#message_button').removeClass('buttonnone');
+				$('#message_button').removeClass('buttonnone');
 				//убираем кнопки подсказки
 				$('#tip_button').addClass('buttonnone');
 				$('#tip_crossword .prompt').addClass('buttonnone');
-				$('#status_true').css('display','none');
-				
 				// назначаем шинину для qtip2
 				//$('.qtip').css({'max-width' : '354px'});
 				
@@ -512,7 +434,7 @@
 			}
 			
 			//console.log(' рейтинг ' + reyting);			
-			console.log(' счетчик ' + meter);			
+			//console.log(' счетчик ' + meter);			
 						
 						
 			//console.log(currVal[4]);
