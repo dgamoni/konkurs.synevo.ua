@@ -26,14 +26,20 @@
 			var puzz = {}; // put data array in object literal to namespace it into safety
 			puzz.data = entryData;
 			
+			
+							
+			
 			var helpActive = false;
 			if ((typeof helpButton !== "undefined") && (typeof helpValue !== "undefined")) {
 				$(helpButton).click(function(event){
 					if (helpActive == true) {
+						
 						helpActive = false;
 					} else {
 						helpActive = true;
+						
 					}
+						
 					return false;
 				});
 			}
@@ -46,6 +52,9 @@
 			    reyting = 0,
 			 	meter = 0;
 				slovo = 0;
+				var all_minus = object_crossword.all_minus;
+				$(helpValue).val(all_minus/5);
+				var j = 0;
 			
 			// initialize some variables
 			var tbl = ['<table id="puzzle">'],
@@ -335,7 +344,30 @@
 						.join('');
 				
 					
-    		
+    				console.log(currVal);
+					console.log(activePosition);
+					console.log(valToCheck.length);
+					console.log(currVal.length);
+					
+				if (valToCheck.length == currVal.length ) {
+					pos = activePosition;
+					vall = currVal;
+//------------- ajax  -----------------------------------			
+				var data = {
+						action: 'my_action',
+						pos: pos,      // We pass php values differently!
+						vall: vall
+							};
+				// We can also pass the url value separately from ajaxurl for front end AJAX implementations
+				jQuery.post(
+				object_crossword.ajaxurl,
+				data,
+				function(response) {
+				//alert('vall: ' + response);
+				
+				});
+//-----------------------------------------------------
+				}
 
 					
 					if(valToCheck === currVal){	
@@ -344,13 +376,14 @@
 							.removeClass('active');
 					
 						$('.clues-active').addClass('clue-done');
+						$('.done').prop('disabled', true);	
 
 						solved.push(valToCheck);
 						solvedToggle = true;
 						
 						// считаем отгаданные слова
 						meter++;
-						
+						console.log('количество разгаданных слов: ' + meter);
 			
 			 
 //------------- если ввели контрольное словоправильно		
@@ -358,7 +391,8 @@
 				reyting = 20;
 				meter--;
 				slovo = 1;
-				$('.entry-21 input').prop('disabled', true);
+				// закрываем разгаданное слово
+				//$('.entry-21 input').prop('disabled', true);
 //------------- ajax  -----------------------------------			
 				var data = {
 						action: 'my_action',
@@ -380,7 +414,7 @@
 				$('.rating').text(response);
 				});
 //-----------------------------------------------------				
-	
+				$(helpValue).val(parseInt($(helpValue).val())+4);
 				//console.log(object_crossword.opt);
 				//console.log(object_crossword.ajaxurl);
 				}
@@ -725,7 +759,24 @@
 							$(el).animate({backgroundColor:"#FFF", backgroundColor:"#FFF", backgroundColor:"#FFF", backgroundColor:"#FFF"}, 700);
 						}
 						
-						if ((helpActive == true) && ($(helpValue).val() > 0)) {
+				//-------------	
+				
+				//-------ajax--------------------------------------
+							
+							
+							//console.log(object_crossword.all_minus);
+							
+						
+							var z = 0;
+							var minus = all_minus/5;
+							//$(helpValue).val(minus);
+							//console.log('minus' + all_minus);
+							//console.log('j' + j);
+														
+					//-------ajax							
+						if ((helpActive == true) && ($(helpValue).val() > 0) ) {
+							
+							
 							mrt = puzz.data[activePosition].answer.toLowerCase();
 							if (classes.length == 2) {
 								$(el).val (mrt[$('.position-' + classes[1].split('-')[1] + ' input').index(el)]);
@@ -733,8 +784,89 @@
 								$(el).val (mrt[$('.position-' + classes[0].split('-')[1] + ' input').index(el)]);
 							}
 							
+							j++;
+							z = (j * 5);
+							
+							
+							//console.log('_minus' + all_minus);
+							//console.log('j' + j);
+							//console.log('_z' + z);
+														
+							var data = {
+								action: 'my_action',
+								//whatever: object_crossword.all_minus,      // We pass php values differently!
+								z: z
+								
+									};
+								
+							jQuery.post(
+								object_crossword.ajaxurl,
+								data,
+								function(response) {
+								//alert('minus: ' + response);
+								$('#message_word').text('Вы использовали подсказку, с вас сняли 5 баллов');
+								$('.rating').text(response);
+								
+						$(".entry-21").find(":input[type='text']").prop('disabled', false);
+						//---------------
+						$("#puzzle").find('[data-coords]').each(function(index){
+							
+						$input = $(this).find(":input");
+							
+			 			if($(this).attr('data-coords') == '8,9'){
+   			 			//alert('hello');
+			 			$input.prop('disabled', false);
+			 			} else
+						if($(this).attr('data-coords') == '14,6'){
+   			 			//alert('hello');
+			 			$input.prop('disabled', false);
+			 			} else
+						if($(this).attr('data-coords') == '10,12'){
+   			 			//alert('hello');
+			 			$input.prop('disabled', false);
+			 			} else
+						if($(this).attr('data-coords') == '14,12'){
+   			 			//alert('hello');
+			 			$input.prop('disabled', false);
+			 			} else
+						if($(this).attr('data-coords') == '11,15'){
+   			 			//alert('hello');
+			 			$input.prop('disabled', false);
+			 			} else
+						if($(this).attr('data-coords') == '3,18'){
+   			 			//alert('hello');
+			 			$input.prop('disabled', false);
+			 			} else
+						if($(this).attr('data-coords') == '1,20'){
+   			 			//alert('hello');
+			 			$input.prop('disabled', false);
+			 			} else
+						if($(this).attr('data-coords') == '8,22'){
+   			 			//alert('hello');
+			 			$input.prop('disabled', false);
+			 			} else
+						if($(this).attr('data-coords') == '9,24'){
+   			 			//alert('hello');
+			 			$input.prop('disabled', false);
+			 			} else
+						if($(this).attr('data-coords') == '5,25'){
+   			 			//alert('hello');
+			 			$input.prop('disabled', false);
+			 			}
+						});
+				  //--------------------------------------------
+				  
+				  });
+							
+							
+														
 							$(helpValue).val($(helpValue).val()-1);
+							console.log('val' + $(helpValue).val());
+							//console.log('minus' + minus);
+							 
+							//---------
 							helpActive = false;
+							 
 						}
 
 

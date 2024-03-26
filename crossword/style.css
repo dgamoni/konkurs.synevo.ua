@@ -33,7 +33,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 body {
 	background: #fff;
 	line-height: 1;
-	/* overflow-x: hidden; */
+	overflow-x: hidden;
 }
 ol, ul {
 	list-style: none;
@@ -74,9 +74,9 @@ body {
 	font-family: 'PT Sans', sans-serif;
 	line-height: 1.625;
 	
-	background: url(img/sinevo_bg_100.jpg) repeat; 
+	 
 	
-/*	background: url(http://supergorod.nibelung.com.ua/tmp/bg.jpg) repeat; */
+	background: url(img/sinevo_bg_100.jpg) repeat;
 	
 	margin: 0px;
 	padding: 0px;
@@ -125,7 +125,7 @@ header {
 }
 
 #zero {
-	width: 145px; /*fokin 06.04.20.13*/
+	width: 165px;
 	min-height: 190px;
 	float: left;
 		
@@ -153,20 +153,19 @@ header {
 /*	padding-left: 37px; */
 	text-shadow: none;
 }
-#timer_text {	/*fokin 06.04.20.13*/
-	font-size: 13px;
-	line-height: 1.2;
-	text-align: center;
-	font-weight: normal;
+#timer_text {
+	font-size: 12px;
+	
+	line-height: 1.3;
+	font-weight: bold;
 	padding-top: 18px;
-	letter-spacing: 0px;
 }
 
 /* user widget--- */
 #user {
 	width: 278px;
-	float: left;	
-	margin-left: 20px; /* monin */	
+	float: left;
+		
 	min-height: 190px;
 }
 #user_reg {
@@ -313,14 +312,14 @@ nav {
 	font-size: 18px;
 	padding-bottom: 16px;
 	
-	margin-left: -10px;/* monin */
+	margin-left: -16px;
 	width: 960px;
 	margin-right: -16px;
 	
 }
 
 #myslidemenu {
-	text-align: left; /* monin */
+	text-align: right;
 		
 }
 .jqueryslidemenu ul li {
@@ -378,7 +377,7 @@ nav {
 
 .wrap {
 	padding-bottom: 20px;
-	font-size: 15px; /*Fokin 05.04.13*/
+	font-size: 13px;
 	color: black;
 	line-height: 1.3;
 	text-shadow: 1px 0px 0px rgb(197, 196, 196);
@@ -386,7 +385,7 @@ nav {
 	
 	min-height: 330px;
 }
-.page-id-42 .wrap {font-size:13px;} /*monin */
+.page-id-42 .wrap {font-size:14px;} /*monin */
 
 .wrap h2 {
 	font-size: 24px;
@@ -619,9 +618,6 @@ footer p {
 		#puzzle-clues li{
 			margin-bottom: 10px;
 		}
-		#puzzle-clues {
-			font-size: 14px; /* = monin 5-04-13 */
-		}
 		.entry-17 .myindex {
 		margin-top: -49px;
 		margin-left: -21px;
@@ -834,8 +830,8 @@ footer p {
 
 #who_asked {margin-bottom: 5px;}
 #question {width: 379px;}
+/*-------------------------*/
 
-/*---------- update ----------------------*/
 #myanswer {
 font-size: 15px !important; /* monin */
 }

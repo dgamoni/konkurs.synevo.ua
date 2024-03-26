@@ -275,8 +275,20 @@ function crossword_rating()
 			// баллы за контрольное слово
 			$word1 = get_user_meta( $user_id_sinevo, 'word_rating_1', true );
 			$word2 = get_user_meta( $user_id_sinevo, 'word_rating_2', true ); 
-			$word3 = get_user_meta( $user_id_sinevo, 'word_rating_3', true );  
-              
+			$word3 = get_user_meta( $user_id_sinevo, 'word_rating_3', true ); 
+			
+			//вычисляем потраченные баллы 
+            $minus1 = get_user_meta( $user_id_sinevo, 'minus_1', true );
+			$minus = get_user_meta( $user_id_sinevo, 'minus', true );
+			
+			$minus = $minus + $minus1 + $minus2 + $minus3;
+			update_user_meta($user_id_sinevo, 'minus_1', 0);
+			update_user_meta($user_id_sinevo, 'minus', $minus);
+			//----------------			
+			
+			
+			
+			
             //вычисляем рейтинг при регистрации
 			$user_rating = get_user_meta( $user_id_sinevo, $key, true ); 
             //вычисляем рейтин за приглашение реферов первой линии
@@ -308,6 +320,7 @@ function crossword_rating()
             //echo 'баллы за слово 1= '. $word1. '<br>';
             //итоговый рейтинг
             //echo 'всего  балов: ' . $all_rating. '<br>'; 
+			
 
 return $all_rating;           
 }
@@ -329,11 +342,19 @@ function my_scripts_method() {
 		wp_enqueue_script('jquery_crossword', get_template_directory_uri() . '/js/jquery.crossword.js', __FILE__ );
 		wp_enqueue_script('script', get_template_directory_uri() . '/js/script.js', __FILE__ );
 		}
-		$translation_array = array('opt' => select_crossword(), 'ajaxurl' => admin_url( 'admin-ajax.php' ));
+		//$user_id_sinevo = get_current_user_id();
+		//$all_rating_minus = get_user_meta( $user_id_sinevo, 'all_rating', true );
+		
+		$translation_array = array('all_minus' => crossword_rating(), 'opt' => select_crossword(), 'ajaxurl' => admin_url( 'admin-ajax.php' ));
+		
 		wp_localize_script( 'jquery_crossword', 'object_crossword', $translation_array );
 }
 
-add_action( 'wp_enqueue_scripts', 'my_scripts_method' );
+//------------------------------------
+
+ 
+
+//add_action( 'wp_enqueue_scripts', 'my_scripts_method' );
 
 //-------------------------------------------------------
 
@@ -342,10 +363,13 @@ add_action( 'wp_enqueue_scripts', 'my_scripts_method' );
 // получаем и обрабатываем данные из скрипта - ajax
 
 add_action('wp_ajax_my_action', 'my_action_callback');
+//add_action('wp_ajax_my_action', 'my_action1_callback');
 //add_action('wp_ajax_nopriv_my_action', 'my_action_callback');
 
+
+
+//--------------------- callback for word and crossword
 function my_action_callback() {
-	
 	$user_id_sinevo = get_current_user_id();
 	$all_rating = get_user_meta( $user_id_sinevo, 'all_rating', true );
 	$word_rating1 = get_user_meta( $user_id_sinevo, 'word_rating_1', true );
@@ -354,14 +378,21 @@ function my_action_callback() {
 	$cross_rating1 = get_user_meta( $user_id_sinevo, 'cross_1', true );
 	$cross_rating2 = get_user_meta( $user_id_sinevo, 'cross_2', true );
 	$cross_rating3 = get_user_meta( $user_id_sinevo, 'cross_3', true );
+	 $minus1 = get_user_meta( $user_id_sinevo, 'minus_1', true );
 	
 	global $wpdb;
 	$whatever = intval($_POST['reyting']) ;
 	$whatever_c = intval($_POST['reyting_c']) ;
+	$z = intval($_POST['z']) ;
+
+	$vall = ($_POST['vall']) ;
+	$pos = intval($_POST['pos']) ;
+	if (isset($vall)) {
+		update_user_meta($user_id_sinevo, 'pos_'.$pos, $vall);
+		echo $vall;}
+	 
 	
-	        //echo $whatever;
-	
-	
+//crossword	and word
 	if ((select_crossword()== 1) && ($cross_rating1 != 50) && ( $whatever_c != 0)) {
 		  update_user_meta($user_id_sinevo, 'cross_1', 50);
 		  if ( $word_rating1 != 20 ) {
@@ -371,31 +402,53 @@ function my_action_callback() {
 		  } else {
 			  $all_rating = get_user_meta( $user_id_sinevo, 'all_rating', true );
 			    echo $all_rating + 20 + 50;
-				 }
+		  }
 		
-		} 
-		elseif
+	}
+// only word first 
+	elseif
 		 ( (select_crossword()== 1) && ( $word_rating1 != 20)  && ( $whatever == 20) && ($cross_rating1 != 50))
 		 {
 		 update_user_meta($user_id_sinevo, 'word_rating_1', 20);
+		 $min1 = get_user_meta( $user_id_sinevo, 'minus_1', true );
 		 $word_rating1 = 20;
-		 echo $all_rating + 20;
+		 crossword_rating();
+		  
+		 
+		 
+		 echo $all_rating + 20 - $min1;
 		 }
 	else
-		 {
+			
+		// minus 	 
+	 if ((select_crossword()== 1) && ( $z != 0)  ) {
+	 	  $zz =  get_user_meta( $user_id_sinevo, 'minus_1', true );
+		  if ($zz == 0) { 
+		 				update_user_meta($user_id_sinevo, 'minus_1', 5);
+						$i =  get_user_meta( $user_id_sinevo, 'all_rating', true );
+		 				$result = $i - 5;
+		 		        echo $result;
+		                exit();
+		 				
+		 			  } else
+		 				$i =  get_user_meta( $user_id_sinevo, 'all_rating', true );
+						$p = 5 + $zz;
+		 				update_user_meta($user_id_sinevo, 'minus_1', $p);
+		 				$result = $i-$p;
+						echo $result;
+		 				exit();
+					 } 
+	 
+		 else {
 			 $all_rating = get_user_meta( $user_id_sinevo, 'all_rating', true );
 		 echo $all_rating;
 		 }
-	
-	
-	
-	
-	
-	
-	
-	//return $all_rating + $whatever;
+
 	die();
 }
+
+add_action( 'wp_enqueue_scripts', 'my_scripts_method' );
+
 //------------------------------------------------------
 
 // победители . сортируем по балам и печатаем первых пяти, отмечаем в базе users что он победитель  

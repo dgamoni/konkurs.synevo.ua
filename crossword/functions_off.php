@@ -505,7 +505,7 @@ function edit_admin_menus() {
 	
 }
 
-add_action( 'admin_menu', 'edit_admin_menus', 999 );
+//add_action( 'admin_menu', 'edit_admin_menus', 999 );
 
 //-------------
 function my_custom_admin_head(){
@@ -513,11 +513,11 @@ function my_custom_admin_head(){
 				  #nonbut {display: none !important;}
 		</style>';
 }
-add_action('admin_head', 'my_custom_admin_head');
+//add_action('admin_head', 'my_custom_admin_head');
 
 //----------
 
-add_action('admin_init', 'my_remove_menu_elements', 102);
+//add_action('admin_init', 'my_remove_menu_elements', 102);
 
 function my_remove_menu_elements()
 {
@@ -534,11 +534,11 @@ function remove_admin_bar_links() {
 	$wp_admin_bar->remove_menu('view');
 }
 
-add_action( 'wp_before_admin_bar_render', 'remove_admin_bar_links' );
+//add_action( 'wp_before_admin_bar_render', 'remove_admin_bar_links' );
 
 //---------------------------------- страница руководства
 
-add_action('admin_menu', 'register_custom_menu_page_help');
+//add_action('admin_menu', 'register_custom_menu_page_help');
 
 function register_custom_menu_page_help() {
  add_menu_page('custom menu title', 'Руководство', 'add_users', 'custompage', 'custom_menu_page_help' );
