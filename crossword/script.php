@@ -1,38 +1,25 @@
+<?php
 
-/**
-* Jesse Weisbeck's Crossword Puzzle (for all 3 people left who want to play them)
-*
-*/
+echo "
 
 
+
+<script>
 (function($){
 	$.fn.crossword = function(entryData) {
-			/*
-				Qurossword Puzzle: a javascript + jQuery crossword puzzle
-				"light" refers to a white box - or an input
-
-				DEV NOTES: 
-				- activePosition and activeClueIndex are the primary vars that set the ui whenever there's an interaction
-				- 'Entry' is a puzzler term used to describe the group of letter inputs representing a word solution
-				- This puzzle isn't designed to securely hide answerers. A user can see answerers in the js source
-					- An xhr provision can be added later to hit an endpoint on keyup to check the answerer
-				- The ordering of the array of problems doesn't matter. The position & orientation properties is enough information
-				- Puzzle authors must provide a starting x,y coordinates for each entry
-				- Entry orientation must be provided in lieu of provided ending x,y coordinates (script could be adjust to use ending x,y coords)
-				- Answers are best provided in lower-case, and can NOT have spaces - will add support for that later
-			*/
+			
 			
 			var puzz = {}; // put data array in object literal to namespace it into safety
 			puzz.data = entryData;
 			
 			// append clues markup after puzzle wrapper div
 			// This should be moved into a configuration object
-			//this.after('<div id="puzzle-clues"><h2>Across</h2><ol id="across"></ol><h2>Down</h2><ol id="down"></ol></div>');
-			//var wordcontrol =0;
+			
+			var wordcontrol =0;
 			var word = [1,2,3,4,5,6,7,8,9,10];
 			
 			// initialize some variables
-			var tbl = ['<table id="puzzle">'],
+			var tbl = ['<table id=\"puzzle\">'],
 			    puzzEl = this,
 				clues = $('#puzzle-clues'),
 				clueLiEls,
@@ -57,7 +44,7 @@
 				init: function() {
 					currOri = 'across'; // app's init orientation could move to config object
 					
-					// Reorder the problems array ascending by POSITION
+					
 					puzz.data.sort(function(a,b) {
 						return a.position - b.position;
 					});
@@ -118,7 +105,7 @@
 
 						if ( e.keyCode === 9) {
 							
-							mode = "setting ui";
+							mode = \"setting ui\";
 							if (solvedToggle) solvedToggle = false;
 
 							//puzInit.checkAnswer(e)
@@ -134,7 +121,7 @@
 					
 					// tab navigation handler setup
 					puzzEl.delegate('input', 'click', function(e) {
-						mode = "setting ui";
+						mode = \"setting ui\";
 						if (solvedToggle) solvedToggle = false;
 
 						console.log('input click: '+solvedToggle);
@@ -190,14 +177,14 @@
 
 						for (var x=0, j = puzz.data[i].answer.length; x < j; ++x) {
 							entries[i].push(x);
-							coords = puzz.data[i].orientation === 'across' ? "" + puzz.data[i].startx++ + "," + puzz.data[i].starty + "" : "" + puzz.data[i].startx + "," + puzz.data[i].starty++ + "" ;
+							coords = puzz.data[i].orientation === 'across' ? \"\" + puzz.data[i].startx++ + "," + puzz.data[i].starty + \"\" : \"\" + puzz.data[i].startx + \",\" + puzz.data[i].starty++ + \"\" ;
 							entries[i][x] = coords; 
 						}
 
 						// while we're in here, add clues to DOM!
 						
 // dgamoni edit !!!  del  clues standart ------------------------------------------------------------
-						//$('#' + puzz.data[i].orientation).append('<li tabindex="1" data-position="' + i + '">' + puzz.data[i].clue + '</li>'); 
+						//$('#' + puzz.data[i].orientation).append('<li tabindex=\"1\" data-position=\"' + i + '\">' + puzz.data[i].clue + '</li>'); 
 					}				
 					
 					// Calculate rows/cols by finding max coords of each entry, then picking the highest
@@ -208,8 +195,8 @@
 						};
 					}
 
-					rows = Math.max.apply(Math, rows) + "";
-					cols = Math.max.apply(Math, cols) + "";
+					rows = Math.max.apply(Math, rows) + \"\";
+					cols = Math.max.apply(Math, cols) + \"\";
 		
 				},
 				
@@ -219,14 +206,14 @@
 				*/
 				buildTable: function() {
 					for (var i=1; i <= rows; ++i) {
-						tbl.push("<tr>");
+						tbl.push(\"<tr>\");
 							for (var x=1; x <= cols; ++x) {
-								tbl.push('<td data-coords="' + x + ',' + i + '"></td>');		
+								tbl.push('<td data-coords=\"' + x + ',' + i + '\"></td>');		
 							};
-						tbl.push("</tr>");
+						tbl.push(\"</tr>\");
 					};
 
-					tbl.push("</table>");
+					tbl.push(\"</table>\");
 					puzzEl.append(tbl.join(''));
 				},
 				
@@ -246,7 +233,7 @@
 						var letters = puzz.data[x-1].answer.split('');
 
 						for (var i=0; i < entries[x-1].length; ++i) {
-							light = $(puzzCells +'[data-coords="' + entries[x-1][i] + '"]');
+							light = $(puzzCells +'[data-coords=\"' + entries[x-1][i] + '\"]');
 							
 							// check if POSITION property of the entry on current go-round is same as previous. 
 							// If so, it means there's an across & down entry for the position.
@@ -260,7 +247,7 @@
 							if($(light).empty()){
 								$(light)
 									.addClass('entry-' + (hasOffset ? x - positionOffset : x) + ' position-' + (x-1) )
-									.append('<input maxlength="1" val="" type="text" tabindex="-1" />');
+									.append('<input maxlength=\"1\" val=\"\" type=\"text\" tabindex=\"-1\" />');
 							}
 						};
 						
@@ -271,11 +258,11 @@
 						$groupedLights = $('.entry-' + i);
 						if(!$('.entry-' + i +':eq(0) span').length){
 							$groupedLights.eq(0)
-								.append('<span class="myindex">' + puzz.data[i-1].position + '</span>');
+								.append('<span class=\"myindex\">' + puzz.data[i-1].position + '</span>');
 								
 						}
 						// only crossword 1 append index 17
-						if(i==17) {$groupedLights.eq(1).append('<span class="myindex">17</span>');}
+						if(i==17) {\$groupedLights.eq(1).append('<span class=\"myindex\">17</span>');}
 					}	
 					
 					util.highlightEntry();
@@ -307,13 +294,8 @@
 						})
 						.get()
 						.join('');
-						
-						
-    
-//if((activePosition ==3) || (activePosition ==5) ){$('.entry-21 input:first').val('a');}
-   // $('.entry-21 input:first').val(mycurrVal.join(','));
 					
-					//console.log(currVal + " " + valToCheck);
+					//console.log(currVal + \" \" + valToCheck);
 					
 					if(valToCheck === currVal){	
 						$('.active')
@@ -325,36 +307,12 @@
 						solved.push(valToCheck);
 						solvedToggle = true;
 //console.log(currVal[4]);
-						
-						
-						
-						
+						wordcontrol=currVal[4];
 			//console.log(currVal[4]);
 			//console.log(wordcontrol);
-			if((activePosition ==3) || (activePosition ==5) ){word[1]=currVal[4].toUpperCase(); $('.entry-21 input:first').val(word[1]).addClass('done');}
-			
-			if((activePosition ==8)){word[2]=currVal[6].toUpperCase(); $('.entry-21 input:eq(1)').val(word[2]).addClass('done');}
-			if((activePosition ==12)){word[3]=currVal[0].toUpperCase(); $('.entry-21 input:eq(1)').val(word[3]).addClass('done');}
-			
-			if((activePosition ==19)){word[4]=currVal[4].toUpperCase(); $('.entry-21 input:eq(2)').val(word[4]).addClass('done');}
-			
-			if((activePosition ==17)){word[5]=currVal[4].toUpperCase(); $('.entry-21 input:eq(3)').val(word[5]).addClass('done');}
-			if((activePosition ==18)){word[6]=currVal[2].toUpperCase(); $('.entry-21 input:eq(3)').val(word[6]).addClass('done');}
-			
-			if((activePosition ==6)){word[7]=currVal[7].toUpperCase(); $('.entry-21 input:eq(4)').val(word[7]).addClass('done');}
-			
-			if((activePosition ==16)){word[8]=currVal[4].toUpperCase(); $('.entry-21 input:eq(5)').val(word[8]).addClass('done');}
-			
-			if((activePosition ==10)){word[9]=currVal[7].toUpperCase(); $('.entry-21 input:eq(6)').val(word[9]).addClass('done');}
-			
-			if((activePosition ==8)){word[10]=currVal[0].toUpperCase(); $('.entry-21 input:eq(7)').val(word[10]).addClass('done');}
-			
-			if((activePosition ==9)){word[11]=currVal[8].toUpperCase(); $('.entry-21 input:eq(8)').val(word[11]).addClass('done');}
-			
-			if((activePosition ==4)){word[12]=currVal[17].toUpperCase(); $('.entry-21 input:eq(9)').val(word[12]).addClass('done');}
-			//console.log(word[1]);
+			if((activePosition ==3) || (activePosition ==5) ){word[1]=wordcontrol;}
+			console.log(word[1]);
 			//console.log(activePosition);
-			
 						return;
 						
 					}
@@ -558,7 +516,7 @@
 							e1Cell = $('.position-' + classes[0].split('-')[1] + ' input').index(el);
 							e2Cell = $('.position-' + classes[1].split('-')[1] + ' input').index(el);
 
-							if(mode === "setting ui"){
+							if(mode === \"setting ui\"){
 								currOri = e1Cell === 0 ? e1Ori : e2Ori; // change orientation if cell clicked was first in a entry of opposite direction
 							}
 
@@ -571,7 +529,7 @@
 							activePosition = classes[0].split('-')[1];						
 						}
 						
-						console.log('getActivePositionFromClassGroup activePosition: '+activePosition);
+						//console.log('getActivePositionFromClassGroup activePosition: '+activePosition);
 						//if(activePosition ==3){console.log(wordcontrol);}
 						
 				},
@@ -601,10 +559,8 @@
 	
 							
 	}
-	//$("td").find("[data-coords='" + 7,35 +"']").remove;
-	//$("td[data-coords='" + 7,35 +"']").addClass('clicked');
-	//var my = $(".entry-21").data('data-coords','7,35');
-	//console.log(my);
-	//$('.entry-4 input:eq(4)').addClass('wselect');
+	
 	
 })(MyJ);
+</script>
+";

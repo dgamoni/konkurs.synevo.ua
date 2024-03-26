@@ -4,6 +4,7 @@
 					
 	$("#puzzle").find(":input[type='text']").prop('disabled', true);
 	
+	$("#myask").css({'display' : 'none'});
 	
 	//$('#puzzle').click(function() { 
            // $('#puzzle').block({ 

@@ -13,8 +13,10 @@
 							// id for permalink crossword-1 
 							 if (get_field('crossword', 'option')==1)
 							{
+								
+							//include(TEMPLATEPATH . '/script.php');
 							?>
-                            <script src="<?php echo get_template_directory_uri(); ?>/js/jquery.crossword.js"></script>
+                           <script src="<?php echo get_template_directory_uri(); ?>/js/jquery.crossword.js"></script>
 							<script src="<?php echo get_template_directory_uri(); ?>/js/script.js"></script>
 							<?php
 							
