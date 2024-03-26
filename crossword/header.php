@@ -125,7 +125,7 @@ var MyJ = jQuery;
         
         
         <div id="zero">
-        <?php crossword_rating();
+        <?php //crossword_rating();
 			 // echo '<pre>' . crossword_rating(). '</pre>';
 			 // echo '<pre>' .my_action_callback(). '</pre>';
 		 ?>

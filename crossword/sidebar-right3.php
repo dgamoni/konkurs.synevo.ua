@@ -104,10 +104,10 @@
                  <div style="margin-left: 47px;" id="message_button" ><button id="status_true">Готово</button></div>
                  <script>
 				 jQuery(document).ready(function($){ 
-				 		var check =0;
+				 		var check3 =0;
 						$("#status_true").click(function () { 
 						
-						check =1;
+						check3 =1;
 						var data = {
 						action: 'my_action',
 						check3: check3,      // We pass php values differently!

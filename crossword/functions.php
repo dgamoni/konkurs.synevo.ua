@@ -198,15 +198,26 @@ if ( in_array( 'subscriber', $user_t->roles ) || in_array( 'administrator', $use
 
             // эмултруем разгадывание кроссворда
             //update_user_meta($user_id_sinevo, 'cross', 50);
+			
+			if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'Фамилия Имя Отчество: ' .$user_t->display_name. ' ' .$user_info->nickname.'<br>';} 
+			if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'e-mail(логин): ' .$user_t->user_login. '<br>';}
+			if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'телефон: ' .$user_info->custom_field_4. '<br>';} 
+			if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'Специализация: ' .$user_info->custom_field_1. '<br>';}
+			if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'Должность: ' .$user_info->custom_field_2. '<br>';}
+			if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'Место работы: ' .$user_info->custom_field_3. '<br>';}
+			
+                                            
             
 // ref_1 -- находим реферов первой линии ----------------------------------------------
             // считаем реферов
             $ref_count = $wpdb->get_var("SELECT COUNT(*) FROM $table WHERE affp_referral = '$user_info->user_login'");
+			//$ref_count_not = $wpdb->get_var("SELECT COUNT(*) FROM $table WHERE affp_referral = '$user_info->user_login'");
             // если реферы есть 
             if($ref_count){ 
                 //echo 'Ref_1: ' .$ref_count. '<br>';
 				
-				//if ($user_id_sinevo == 359) { echo 'количество рефералов: ' .$ref_count. '<br>';} 
+				if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'количество рефералов: ' .$ref_count. '<br>';}
+				if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo '---------------------------------- <br>';} 
 				
                 $result = $wpdb->get_results("SELECT * FROM  $table WHERE affp_referral = '$user_info->user_login'");
                 
@@ -219,7 +230,14 @@ if ( in_array( 'subscriber', $user_t->roles ) || in_array( 'administrator', $use
                     {
                     $user_info_ref = get_userdata($ref_1->affp_id );
 					
-					//if ($user_id_sinevo == 359) { echo 'Реф 1ой линии - логин: '.$user_info_ref->user_login . ' --> id: ' . $ref_1->affp_id . '<br>';}
+					if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'Реф 1ой линии - логин: <span style="color:red;">'.$user_info_ref->user_login . ' --> id: ' . $ref_1->affp_id . '</span><br>';}
+					
+		if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'Фамилия Имя Отчество: ' .$user_info_ref->display_name. ' ' .$user_info_ref->nickname.'<br>';} 
+			if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'e-mail(логин): ' .$user_info_ref->user_login. '<br>';}
+			if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'телефон: ' .$user_info_ref->custom_field_4. '<br>';} 
+			if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'Специализация: ' .$user_info_ref->custom_field_1. '<br>';}
+			if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'Должность: ' .$user_info_ref->custom_field_2. '<br>';}
+			if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'Место работы: ' .$user_info_ref->custom_field_3. '<br>';}
                     //список рефрево первой линии
                     //echo 'логин: '.$user_info_ref->user_login . ' --> id: ' . $ref_1->affp_id . '<br>';
 
@@ -227,10 +245,21 @@ if ( in_array( 'subscriber', $user_t->roles ) || in_array( 'administrator', $use
                     if( isset ($user_info_ref->cross)) { 
                                             $cross_r1 = $user_info_ref->cross /2;
                                             $i++;
-                                             update_user_meta($user_id_sinevo, 'cross_r1_'.$i , $cross_r1);
+											
+											//----------new ----------
+											if ( in_array( 'contributor', $user_info_ref->roles ) ) {
+                                             update_user_meta($user_id_sinevo, 'cross_r1_'.$i , '0');
+				if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo '<span style="color:red;">дисквалифицирован</span> -> ';}
+											} else 
+											{update_user_meta($user_id_sinevo, 'cross_r1_'.$i , $cross_r1);}
+											//----------new ----------
+											
                                              $cross_r1_all=get_user_meta($user_id_sinevo, cross_r1_.$i, true )+$cross_r1_all;
-											 //if ($user_id_sinevo == 359) { echo 'баллы за Реф 1ой линии : '. $cross_r1_all . '<br>';}
+											 
+											 if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'Сумма баллов за Реф 1ой линии : '. $cross_r1_all . '<br>';}
+											 if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo '---------------------------------- <br>';}
                                             } 
+											
 // end cross_1 -------------------------------------------------
 
 // end ref_1 --------------------------------------------------------------------------------
@@ -243,7 +272,14 @@ if ( in_array( 'subscriber', $user_t->roles ) || in_array( 'administrator', $use
                         {
                         $user_info_ref_2 = get_userdata($ref_2->affp_id );
 						
-						//if ($user_id_sinevo == 359) { echo '_'.'Реф 2ой линии - логин:'. $user_info_ref_2->user_login . ' --> id:' . $ref_2->affp_id . '<br>';} 
+						if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo '_'.'Реф 2ой линии - логин: <span style="color:blue">'. $user_info_ref_2->user_login . ' --> id:' . $ref_2->affp_id . '</span><br>';} 
+						
+		if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'Фамилия Имя Отчество: ' .$user_info_ref_2->display_name. ' ' .$user_info_ref_2->nickname.'<br>';} 
+			if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'e-mail(логин): ' .$user_info_ref_2->user_login. '<br>';}
+			if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'телефон: ' .$user_info_ref_2->custom_field_4. '<br>';} 
+			if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'Специализация: ' .$user_info_ref_2->custom_field_1. '<br>';}
+			if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'Должность: ' .$user_info_ref_2->custom_field_2. '<br>';}
+			if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'Место работы: ' .$user_info_ref_2->custom_field_3. '<br>';}
                         //список рефрево второй линии 
                         //echo '_'.'ref_2 = логин:'. $user_info_ref_2->user_login . ' --> id:' . $ref_2->affp_id . '<br>';
 
@@ -254,10 +290,21 @@ if ( in_array( 'subscriber', $user_t->roles ) || in_array( 'administrator', $use
                                             if ($cross_r2==50 ) {$cross_r2=15;} elseif ($cross_r2==100 )
                                             {$cross_r2=30;} elseif ($cross_r2==150 ) {$cross_r2=45;}
                                             $ii++;
-                                            update_user_meta($user_id_sinevo, 'cross_r2_'.$ii , $cross_r2);
+											
+											//----------new ----------
+											if ( in_array( 'contributor', $user_info_ref->roles ) ) {
+                                             update_user_meta($user_id_sinevo, 'cross_r2_'.$ii , '0');
+				if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo '<span style="color:red;">дисквалифицирован</span> -> ';}
+											} else 
+											{update_user_meta($user_id_sinevo, 'cross_r2_'.$ii , $cross_r2);}
+											//----------new ----------
+											
+                                            
                                             $cross_r2_all=get_user_meta($user_id_sinevo, cross_r2_.$ii, true )+$cross_r2_all;
-											//if ($user_id_sinevo == 359) { echo 'баллы за Реф 2ой линии : '.$cross_r2_all . '<br>';}
-                                            } 
+											
+											if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'Сумма баллов за Реф 2ой линии : '.$cross_r2_all . '<br>';}
+                                            }
+											if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo '---------------------------------- <br>';} 
  // end cross_2 ---- --------------------------------------------
  // end ref_2 ------------------------------------------------------------------------------
 
@@ -268,7 +315,14 @@ if ( in_array( 'subscriber', $user_t->roles ) || in_array( 'administrator', $use
                             {
                             $user_info_ref_3 = get_userdata($ref_3->affp_id );
 							
-							//if ($user_id_sinevo == 359) { echo '__Реф 3ей линии - логин: '. $user_info_ref_3->user_login . ' --> id:' . $ref_3->affp_id . '<br>';} 
+							if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo '__Реф 3ей линии - логин: <span style="color:green;">'. $user_info_ref_3->user_login . ' --> id:' . $ref_3->affp_id . '</span><br>';} 
+							
+	if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'Фамилия Имя Отчество: ' .$user_info_ref_3->display_name. ' ' .$user_info_ref_3->nickname.'<br>';} 
+			if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'e-mail(логин): ' .$user_info_ref_3->user_login. '<br>';}
+			if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'телефон: ' .$user_info_ref_3->custom_field_4. '<br>';} 
+			if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'Специализация: ' .$user_info_ref_3->custom_field_1. '<br>';}
+			if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'Должность: ' .$user_info_ref_3->custom_field_2. '<br>';}
+			if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'Место работы: ' .$user_info_ref_3->custom_field_3. '<br>';}
                             //список рефрево третей линии  
                             //echo 'ref_3= логин: '. $user_info_ref_3->user_login . ' --> id:' . $ref_3->affp_id . '<br>';
 
@@ -277,10 +331,22 @@ if ( in_array( 'subscriber', $user_t->roles ) || in_array( 'administrator', $use
                                             if( isset ($user_info_ref_3->cross)) { 
                                                   $cross_r3 = $user_info_ref_3->cross /10;
                                             	  $iii++;
-                                             		update_user_meta($user_id_sinevo, 'cross_r3_'.$iii , $cross_r3);
+												  
+												  //----------new ----------
+											if ( in_array( 'contributor', $user_info_ref->roles ) ) {
+                                             update_user_meta($user_id_sinevo, 'cross_r3_'.$iii , '0');
+				if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo '<span style="color:red;">дисквалифицирован</span> -> ';}
+											} else 
+											{update_user_meta($user_id_sinevo, 'cross_r3_'.$iii , $cross_r3);}
+											//----------new ----------
+											
+                                             		
                                              		$cross_r3_all=get_user_meta($user_id_sinevo, cross_r3_.$iii, true )+$cross_r3_all;
-													//if ($user_id_sinevo == 359) { echo 'баллы за Реф 3ой линии : '.$cross_r3_all . '<br>';}
+													
+													if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)){ echo 'Сумма баллов за Реф 3ой линии : '.$cross_r3_all . '<br>';}
+													if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo '---------------------------------- <br>';} 
                                               } 
+	
                                             
 // cross_3 ----------------------------------------------------
                             } // конец цикла для реферов 3
@@ -327,6 +393,7 @@ if ( in_array( 'subscriber', $user_t->roles ) || in_array( 'administrator', $use
             //запоминаем его в базе
             update_user_meta($user_id_sinevo, 'all_rating', $all_rating);
 
+if (($user_id_sinevo == 1544) || ($user_id_sinevo == 1) || ($user_id_sinevo == 950)|| ($user_id_sinevo == 1426) || ($user_id_sinevo == 335)) { echo 'суммарный рейтинг =<strong>'.$all_rating.'</strong>= баллы за все кроссворды: <strong>'.$cross_rating.'</strong>+баллы за регистрацию: <strong>'.$user_rating.'</strong>+баллы за приглашение: <strong>'.$ref_rating.'</strong> +баллы за реф 1: <strong>'.$cross_r1_all.'</strong> +баллы за реф 2: <strong>'.$cross_r2_all.'</strong> +баллы за реф 3: <strong>'.$cross_r3_all.'</strong> +баллы за слово 1: <strong>'.$word1.'</strong> +баллы за слово 2: <strong>'.$word2.'</strong> +баллы за слово 3: <strong>'.$word3.'</strong> -минус потраченные баллы: <strong>'.$minus.'</strong>';} 
             //тестовый просмотр всех переменных 
 
             //имя - логин пользователя
@@ -718,7 +785,9 @@ $whatever_c =0;
 		 
 		 echo $all_rating ;
 		 }
-//-- update 8-05-13  -------- for crossword 3	
+//-- update 8-05-13  -------- for crossword 3	 
+		 
+		 
 		 
 		 
 		 
@@ -999,3 +1068,4 @@ $user_id_sinevo = get_current_user_id();
 update_user_meta($user_id_sinevo, 'check_1', 'ждет проверки');
 }
 
+//----------------------------------------
