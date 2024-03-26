@@ -187,7 +187,8 @@
 				
 			] 
 	
-		$('#puzzle-wrapper').crossword(puzzleData);
+		//$('#puzzle-wrapper').crossword(puzzleData);
+		$('#puzzle-wrapper').crossword(puzzleData, "#helpbut", "#helpcounter");
 		
 	})
 	

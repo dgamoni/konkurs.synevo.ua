@@ -6,7 +6,8 @@
 
 
 (function($){
-	$.fn.crossword = function(entryData) {
+	
+	$.fn.crossword = function(entryData, helpButton, helpValue) {
 			/*
 				Qurossword Puzzle: a javascript + jQuery crossword puzzle
 				"light" refers to a white box - or an input
@@ -25,11 +26,26 @@
 			var puzz = {}; // put data array in object literal to namespace it into safety
 			puzz.data = entryData;
 			
+			var helpActive = false;
+			if ((typeof helpButton !== "undefined") && (typeof helpValue !== "undefined")) {
+				$(helpButton).click(function(event){
+					if (helpActive == true) {
+						helpActive = false;
+					} else {
+						helpActive = true;
+					}
+					return false;
+				});
+			}
+			
 			// append clues markup after puzzle wrapper div
 			// This should be moved into a configuration object
 			//this.after('<div id="puzzle-clues"><h2>Across</h2><ol id="across"></ol><h2>Down</h2><ol id="down"></ol></div>');
 			//var wordcontrol =0;
-			var word = [1,2,3,4,5,6,7,8,9,10];
+			var word = [1,2,3,4,5,6,7,8,9,10],
+			    reyting = 0,
+			 	meter = 0;
+				slovo = 0;
 			
 			// initialize some variables
 			var tbl = ['<table id="puzzle">'],
@@ -103,7 +119,7 @@
 							return false;
 						} else {
 							
-							console.log('input keyup: '+solvedToggle);
+							//console.log('input keyup: '+solvedToggle);
 							
 							puzInit.checkAnswer(e);
 
@@ -137,10 +153,13 @@
 						mode = "setting ui";
 						if (solvedToggle) solvedToggle = false;
 
-						console.log('input click: '+solvedToggle);
+						//console.log('input click: '+solvedToggle);
 					
 						nav.updateByEntry(e);
+						//console.log(nav.updateByEntry(e));
 						e.preventDefault();
+						
+						
 									
 					});
 					
@@ -160,6 +179,7 @@
 					puzzEl.delegate('#puzzle', 'click', function(e) {
 						$(e.target).focus();
 						$(e.target).select();
+						
 					});
 					
 					// DELETE FOR BG
@@ -244,6 +264,7 @@
 						
 					for (var x=1, p = entryCount; x <= p; ++x) {
 						var letters = puzz.data[x-1].answer.split('');
+						//console.log(letters);
 
 						for (var i=0; i < entries[x-1].length; ++i) {
 							light = $(puzzCells +'[data-coords="' + entries[x-1][i] + '"]');
@@ -261,10 +282,12 @@
 								$(light)
 									.addClass('entry-' + (hasOffset ? x - positionOffset : x) + ' position-' + (x-1) )
 									.append('<input maxlength="1" val="" type="text" tabindex="-1" />');
+									//console.log(x);
 							}
 						};
 						
 					};	
+					
 					
 					// !!!! index !!! i-1  Put entry number in first 'light' of each entry, skipping it if already present
 					for (var i=1, p = entryCount; i-1 < p; ++i) {
@@ -295,25 +318,25 @@
 					var valToCheck, currVal;
 					
 					util.getActivePositionFromClassGroup($(e.target));
+				//console.log(ActivePosition);
 				
 					valToCheck = puzz.data[activePosition].answer.toLowerCase();
+					
+					//console.log(valToCheck[1]);
 
 					currVal = $('.position-' + activePosition + ' input')
 						.map(function() {
 					  		return $(this)
 								.val()
 								.toLowerCase();
-								
+								//console.log(currVal);
 						})
 						.get()
 						.join('');
-						
-						
-    
-//if((activePosition ==3) || (activePosition ==5) ){$('.entry-21 input:first').val('a');}
-   // $('.entry-21 input:first').val(mycurrVal.join(','));
+				
 					
-					//console.log(currVal + " " + valToCheck);
+    		
+
 					
 					if(valToCheck === currVal){	
 						$('.active')
@@ -324,13 +347,90 @@
 
 						solved.push(valToCheck);
 						solvedToggle = true;
-//console.log(currVal[4]);
 						
+						// считаем отгаданные слова
+						meter++;
 						
+			
+			 
+//------------- если ввели контрольное словоправильно		
+			if((currVal=='аггравация') && (slovo == 0)){
+				reyting = 20;
+				meter--;
+				slovo = 1;
+				$('.entry-21 input').prop('disabled', true);
+//------------- ajax  -----------------------------------			
+				var data = {
+						action: 'my_action',
+						whatever: object_crossword.opt,      // We pass php values differently!
+						reyting: reyting
+							};
+				// We can also pass the url value separately from ajaxurl for front end AJAX implementations
+				jQuery.post(
+				object_crossword.ajaxurl,
+				data,
+				function(response) {
+				//alert('reyting: ' + response);
+				$('#message_word').text('Поздравляю! Вы разгадали контрольное слово и вам начисленно 20 баллов.');
+				
+				
+				
+				
+				
+				$('.rating').text(response);
+				});
+//-----------------------------------------------------				
+	
+				//console.log(object_crossword.opt);
+				//console.log(object_crossword.ajaxurl);
+				}
+
+
+//---------првоверяем счетчик слов если 20 - кроссворд разгадан			
+			if((meter == 20) && !(currVal=='аггравация')){
+				reyting_c =  50;
+			//------------------ ajax для кроссворда---------------				
+				var data = {
+						action: 'my_action',
+						whatever: object_crossword.opt,      // We pass php values differently!
+						reyting_c: reyting_c
+							};
+				// We can also pass the url value separately from ajaxurl for front end AJAX implementations
+				jQuery.post(
+				object_crossword.ajaxurl,
+				data,
+				function(response) {
+				//alert('reyting_c: ' + response);
+	// коллбэки то что будем делать если кроссворд разгадан
+	
+				//добавляем сообщение
+				
+				$('#message_crossword').html('Поздравляю! Вы разгадали кроссворд.<br> Вам начисленно 50 баллов. Нажмите кнопку готово<br> чтобы отправить администратору на проверку.');	
+				
+				//добавляем кнопку готово
+				$('#message_button').removeClass('buttonnone');
+				//убираем кнопки подсказки
+				$('#tip_button').addClass('buttonnone');
+				$('#tip_crossword .prompt').addClass('buttonnone');
+				// назначаем шинину для qtip2
+				//$('.qtip').css({'max-width' : '354px'});
+				
+				// обновляем рейтин в шапке, 
+				$('.rating').text(response);
+				// закрываем кроссворд для редактирования
+				$('#puzzle input').prop('disabled', true);
+				
+				});
+//-----------------------------------------------------	
+			}
+			
+			//console.log(' рейтинг ' + reyting);			
+			//console.log(' счетчик ' + meter);			
 						
 						
 			//console.log(currVal[4]);
 			//console.log(wordcontrol);
+//------------- заполняем автоматически контрольное слово-----------------
 			if((activePosition ==3) || (activePosition ==5) ){word[1]=currVal[4].toUpperCase(); $('.entry-21 input:first').val(word[1]).addClass('done');}
 			
 			if((activePosition ==8)){word[2]=currVal[6].toUpperCase(); $('.entry-21 input:eq(1)').val(word[2]).addClass('done');}
@@ -354,6 +454,39 @@
 			if((activePosition ==4)){word[12]=currVal[17].toUpperCase(); $('.entry-21 input:eq(9)').val(word[12]).addClass('done');}
 			//console.log(word[1]);
 			//console.log(activePosition);
+// формируем массив контрольного слова из уже полученных букв
+		var	myword = ($('.entry-21 input:eq(0)').val() + $('.entry-21 input:eq(1)').val() + $('.entry-21 input:eq(2)').val() + $('.entry-21 input:eq(3)').val() + $('.entry-21 input:eq(4)').val() + $('.entry-21 input:eq(5)').val() + $('.entry-21 input:eq(6)').val() + $('.entry-21 input:eq(7)').val() + $('.entry-21 input:eq(8)').val() + $('.entry-21 input:eq(9)').val()).toLowerCase();
+			//console.log(myword);
+			
+//------------- ajax  проверка контрольного слова открытого автоматически		
+			if((myword == 'аггравация') && (slovo == 0)){
+				reyting = 20;
+				slovo = 1;
+				//meter--;
+				$('.entry-21 input').prop('disabled', true);
+			//--------------------------------------------------				
+				var data = {
+						action: 'my_action',
+						whatever: object_crossword.opt,      // We pass php values differently!
+						reyting: reyting
+							};
+				// We can also pass the url value separately from ajaxurl for front end AJAX implementations
+				jQuery.post(
+				object_crossword.ajaxurl,
+				data,
+				function(response) {
+				//alert('reyting: ' + response);
+				$('#message_word').text('Поздравляю! Вы разгадали контрольное слово и вам начисленно 20 баллов.');
+				$('.rating').text(response);
+				});
+			}
+//-----------------------------------------------------	
+// функция проверки . Если слово пересекается с уже разгаданным словом и пользователь вводит букву,
+// которая не соответствует пересекающейся букве, слово подсвечивается красным цветом и не сохраняется.
+
+
+
+
 			
 						return;
 						
@@ -538,25 +671,30 @@
 					for(var i=0; i < classLen; ++i){
 						if (!classes[i].indexOf(type) ) {
 							positions.push(classes[i]);
+							//console.log(positions.push(classes[i]));
 						}
 					}
 					
 					return positions;
+					//console.log(positions);
 				},
 
 				getActivePositionFromClassGroup: function(el){
 
 						classes = util.getClasses($(el).parent(), 'position');
+						//console.log(classes);
 
 						if(classes.length > 1){
 							// get orientation for each reported position
 							e1Ori = $(clueLiEls + '[data-position=' + classes[0].split('-')[1] + ']').parent().prop('id');
 							e2Ori = $(clueLiEls + '[data-position=' + classes[1].split('-')[1] + ']').parent().prop('id');
-
+							//console.log(e1Ori + ' ' + e2Ori);
+							
 							// test if clicked input is first in series. If so, and it intersects with
 							// entry of opposite orientation, switch to select this one instead
 							e1Cell = $('.position-' + classes[0].split('-')[1] + ' input').index(el);
 							e2Cell = $('.position-' + classes[1].split('-')[1] + ' input').index(el);
+							//console.log(e1Cell + ' ' + e2Cell);
 
 							if(mode === "setting ui"){
 								currOri = e1Cell === 0 ? e1Ori : e2Ori; // change orientation if cell clicked was first in a entry of opposite direction
@@ -570,11 +708,86 @@
 						} else {
 							activePosition = classes[0].split('-')[1];						
 						}
+//-------------------------------
+
+						//nowdrow = $(el).attr('class');
+						if ((typeof nowdrow !== "undefined") && ((nowdrow.indexOf("done") != -1)) && (
+						($(el).val() !== solved[0][$('.position-' + classes[0].split('-')[1] + ' input').index(el)]) ||
+						($(el).val() !== solved[0][$('.position-' + classes[1].split('-')[1] + ' input').index(el)])
+						)) {
+							if (solved[0][$('.position-' + classes[0].split('-')[1] + ' input').index(el)]) {
+								$(el).val(solved[0][$('.position-' + classes[0].split('-')[1] + ' input').index(el)]);
+							} else {
+								$(el).val(solved[0][$('.position-' + classes[1].split('-')[1] + ' input').index(el)]);
+							}
+							
+							$(el).animate({backgroundColor:"#FF0000", backgroundColor:"#FF0000", backgroundColor:"#FF0000", backgroundColor:"#FF0000"}, 50);
+							$(el).animate({backgroundColor:"#FFF", backgroundColor:"#FFF", backgroundColor:"#FFF", backgroundColor:"#FFF"}, 700);
+						}
 						
-						console.log('getActivePositionFromClassGroup activePosition: '+activePosition);
+						if ((helpActive == true) && ($(helpValue).val() > 0)) {
+							mrt = puzz.data[activePosition].answer.toLowerCase();
+							if (classes.length == 2) {
+								$(el).val (mrt[$('.position-' + classes[1].split('-')[1] + ' input').index(el)]);
+							} else {
+								$(el).val (mrt[$('.position-' + classes[0].split('-')[1] + ' input').index(el)]);
+							}
+							
+							$(helpValue).val($(helpValue).val()-1);
+							helpActive = false;
+						}
+
+
+
+//---------------------------
+						//e3Cell = $('.position-' + classes[1].split('-')[1] + ' input').index(el);
+						//console.log(e3Cell);
+						
+												
+						$('.position-' + activePosition).click(function (event) {
+							
+							
+    						//console.log($(this).attr('data-coords'));
+							
+							str = $(this).attr('data-coords');
+							
+							//if ( $(this).is('[data-coords="str"]') ) { $(this).find(':input').addClass('durdom'); }
+							
+							//console.log(ret);
+							
+							
+							var substr = str.split(',');
+							
+							//console.log(substr[0]);
+						
+						
+						
+						//$(this).val(puzz.data[activePosition].answer[z]);
+						//bukva=null;
+			//---------------------------
+						z = Math.abs(puzz.data[activePosition].startx - substr[0] - puzz.data[activePosition].answer.length);
+						//console.log(z);
+						bukva = puzz.data[activePosition].answer[z];
+						//console.log(puzz.data[activePosition].answer[z]);
+						});
+			//-----------------------------
+						//return bukva;
+						//$('.entry-21 input:eq(1)').val(word[2])
+						
+						//console.log('getActivePositionFromClassGroup activePosition: '+activePosition);
+						//console.log(puzz.data[activePosition].answer);
+						//console.log(puzz.data[activePosition].answer.length);
+						//console.log(puzz.data[activePosition].startx);
+//-----------------------
+						//console.log(puzz.data[activePosition]);
 						//if(activePosition ==3){console.log(wordcontrol);}
 						
 				},
+				
+				//openletter : function(activePosition) {
+				//},
+				
+				
 				
 				checkSolved: function(valToCheck) {
 					for (var i=0, s=solved.length; i < s; i++) {
@@ -598,9 +811,14 @@
 
 				
 			puzInit.init();
+			
+			
 	
 							
 	}
+	
+	
+						
 	//$("td").find("[data-coords='" + 7,35 +"']").remove;
 	//$("td[data-coords='" + 7,35 +"']").addClass('clicked');
 	//var my = $(".entry-21").data('data-coords','7,35');

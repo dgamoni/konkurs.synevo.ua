@@ -538,7 +538,7 @@ add_action( 'wp_before_admin_bar_render', 'remove_admin_bar_links' );
 
 //---------------------------------- страница руководства
 
-//add_action('admin_menu', 'register_custom_menu_page_help');
+add_action('admin_menu', 'register_custom_menu_page_help');
 
 function register_custom_menu_page_help() {
  add_menu_page('custom menu title', 'Руководство', 'add_users', 'custompage', 'custom_menu_page_help' );

@@ -33,7 +33,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 body {
 	background: #fff;
 	line-height: 1;
-	overflow-x: hidden;
+	/* overflow-x: hidden; */
 }
 ol, ul {
 	list-style: none;
@@ -65,6 +65,7 @@ strong {
 	font-weight: bold;
 	text-shadow: none;
 }
+a {text-decoration:none;}
 /* =Structure
 ----------------------------------------------- */
 body {
@@ -73,9 +74,9 @@ body {
 	font-family: 'PT Sans', sans-serif;
 	line-height: 1.625;
 	
-	 
+	background: url(img/sinevo_bg_100.jpg) repeat; 
 	
-	background: url(img/sinevo_bg_100.jpg) repeat;
+/*	background: url(http://supergorod.nibelung.com.ua/tmp/bg.jpg) repeat; */
 	
 	margin: 0px;
 	padding: 0px;
@@ -124,7 +125,7 @@ header {
 }
 
 #zero {
-	width: 165px;
+	width: 145px; /*fokin 06.04.20.13*/
 	min-height: 190px;
 	float: left;
 		
@@ -152,19 +153,20 @@ header {
 /*	padding-left: 37px; */
 	text-shadow: none;
 }
-#timer_text {
-	font-size: 12px;
-	
-	line-height: 1.3;
-	font-weight: bold;
+#timer_text {	/*fokin 06.04.20.13*/
+	font-size: 13px;
+	line-height: 1.2;
+	text-align: center;
+	font-weight: normal;
 	padding-top: 18px;
+	letter-spacing: 0px;
 }
 
 /* user widget--- */
 #user {
 	width: 278px;
-	float: left;
-		
+	float: left;	
+	margin-left: 20px; /* monin */	
 	min-height: 190px;
 }
 #user_reg {
@@ -186,6 +188,7 @@ header {
 #user_reg input{
 	width: 158px !important;
 	background-color: #E9DACB;
+	border: 2px solid #B4A99F;
 }
 #user_reg input[type="submit"] {
 	background-color: #808080;
@@ -199,6 +202,12 @@ header {
 	font-family: 'PT Sans', sans-serif;
 	margin-left: 28px;
 	cursor: pointer;
+	
+}
+
+@-moz-document url-prefix() { #user_reg input[type="submit"] {
+  margin-left: 20px;
+}
 }
 
 #user_reg .remember-me {
@@ -304,14 +313,14 @@ nav {
 	font-size: 18px;
 	padding-bottom: 16px;
 	
-	margin-left: -16px;
+	margin-left: -10px;/* monin */
 	width: 960px;
 	margin-right: -16px;
 	
 }
 
 #myslidemenu {
-	text-align: right;
+	text-align: left; /* monin */
 		
 }
 .jqueryslidemenu ul li {
@@ -346,6 +355,15 @@ nav {
 		
 	
 }
+#content_right {
+	float: left;
+	width: 380px;
+	
+	margin-left: 37px;
+	min-height: 330px;
+	
+		
+}
 
 #secondary-right {
 	float: left;
@@ -360,7 +378,7 @@ nav {
 
 .wrap {
 	padding-bottom: 20px;
-	font-size: 13px;
+	font-size: 15px; /*Fokin 05.04.13*/
 	color: black;
 	line-height: 1.3;
 	text-shadow: 1px 0px 0px rgb(197, 196, 196);
@@ -368,6 +386,8 @@ nav {
 	
 	min-height: 330px;
 }
+.page-id-42 .wrap {font-size:13px;} /*monin */
+
 .wrap h2 {
 	font-size: 24px;
 	font-weight: bold;
@@ -376,14 +396,14 @@ nav {
 	letter-spacing: 1px;
 	margin-bottom: 7px;
 }
-.wrap h3 {
+.wrap h3, #content_right h3 {
 	font-size: 17px;
 	font-weight: bold;
 	line-height: 2;
 	text-shadow: 0px 1px 0px rgb(202, 198, 198);
 	letter-spacing: 1px;
 }
-.wrap h4 {
+.wrap h4, #content_right h4 {
 	font-size: 15px;
 	font-weight: bold;
 	line-height: 1;
@@ -529,23 +549,30 @@ footer p {
 ----------------------------------------------- */
 		#puzzle-wrapper { 
 			margin-top: 20px;
+			min-height: 850px;
 		}
 
 		#puzzle-wrapper table { 
 			border-collapse: collapse; 
 			border-spacing: 0; 
 			max-width: 100%;
+			/* border-spacing: 2px;
+			border-collapse:  */
 		}
 		#puzzle-wrapper table tr{
 			width: 100%;
 		}
-		#puzzle-wrapper table .entry-1,#puzzle-wrapper table .entry-2,#puzzle-wrapper table .entry-3,#puzzle-wrapper table .entry-4,#puzzle-wrapper table .entry-5,#puzzle-wrapper table .entry-6,#puzzle-wrapper table .entry-7,#puzzle-wrapper table .entry-8,#puzzle-wrapper table .entry-9,#puzzle-wrapper table .entry-10,#puzzle-wrapper table .entry-11,#puzzle-wrapper table .entry-12,#puzzle-wrapper table .entry-13,#puzzle-wrapper table .entry-14,#puzzle-wrapper table .entry-15,#puzzle-wrapper table .entry-16,#puzzle-wrapper table .entry-17,#puzzle-wrapper table .entry-18,#puzzle-wrapper table .entry-19,#puzzle-wrapper table .entry-20 {
+		#puzzle-wrapper table .entry-1,#puzzle-wrapper table .entry-2,#puzzle-wrapper table .entry-3,#puzzle-wrapper table .entry-4,#puzzle-wrapper table .entry-5,#puzzle-wrapper table .entry-6,#puzzle-wrapper table .entry-7,#puzzle-wrapper table .entry-8,#puzzle-wrapper table .entry-9,#puzzle-wrapper table .entry-10,#puzzle-wrapper table .entry-11,#puzzle-wrapper table .entry-12,#puzzle-wrapper table .entry-13,#puzzle-wrapper table .entry-14,#puzzle-wrapper table .entry-15,#puzzle-wrapper table .entry-16,#puzzle-wrapper table .entry-17,#puzzle-wrapper table .entry-18,#puzzle-wrapper table .entry-19,#puzzle-wrapper table .entry-20,#puzzle-wrapper table .entry-21 {
 			border: 1px solid #cdcdcd;
+			/* border: 2px solid #827C74;
+			-webkit-box-shadow: 1px 1px 1px 0px #827C74;
+	   		-moz-box-shadow: 1px 1px 1px 0px #827C74;
+	        box-shadow: 1px 1px 1px 0px #827C74;  */
 			
 		}
 		#puzzle-wrapper table td, #word-table table td{
-			width: 27px;
-			height: 20px;
+			/*width: 27px;
+			height: 100%; */
 			
 			padding: 0;
 			margin: 0;
@@ -553,8 +580,8 @@ footer p {
 		}
 				
 		#puzzle-wrapper td input, #word-table td input {
-			width: 100%;
-			height: 100%;
+			width: 27px;
+			height: 27px;
 			padding: 0em;
 			border: none;
 			text-align: center;
@@ -571,8 +598,8 @@ footer p {
 			color: #444;
 			font-size: 0.8em;
 			position: absolute;
-			top: -1px;
-			left: 1px;
+			/*top: -1px;
+			left: 1px;*/
 		}
 		
 		#puzzle-wrapper input.done, #word-table input.done {
@@ -592,9 +619,12 @@ footer p {
 		#puzzle-clues li{
 			margin-bottom: 10px;
 		}
+		#puzzle-clues {
+			font-size: 14px; /* = monin 5-04-13 */
+		}
 		.entry-17 .myindex {
-		margin-top: -47px;
-		margin-left: 4px;
+		margin-top: -49px;
+		margin-left: -21px;
 		background-image: url(img/buble.png);
 		background-repeat: no-repeat;
 		width: 16px;
@@ -607,7 +637,7 @@ footer p {
 		}
 		/* = buble left ----------------------------------------------- */
 		.entry-1 .myindex, .entry-4 .myindex, .entry-8 .myindex, .entry-10 .myindex, .entry-13 .myindex, .entry-18 .myindex, .entry-16 .myindex{
-			margin-left: -24px;
+			margin-left: -51px;
 			margin-top: 6px;
 			background-image: url(img/buble_r.png);
 			background-repeat: no-repeat;
@@ -622,7 +652,7 @@ footer p {
 		/* = buble top ----------------------------------------------- */
 		.entry-2 .myindex, .entry-3 .myindex, .entry-5 .myindex, .entry-6 .myindex, .entry-7 .myindex, .entry-9 .myindex, .entry-11 .myindex, .entry-14 .myindex, .entry-15 .myindex, .entry-19 .myindex {
 		margin-top: -21px;
-		margin-left: 4px;
+		margin-left: -21px;
 		background-image: url(img/buble.png);
 		background-repeat: no-repeat;
 		width: 16px;
@@ -634,7 +664,7 @@ footer p {
 		
 		}
 		 .entry-13 .myindex, .entry-20 .myindex {
-			margin-left: -24px;
+			margin-left: -51px;
 			margin-top: 6px;
 			background-image: url(img/buble_r.png);
 			background-repeat: no-repeat;
@@ -648,7 +678,7 @@ footer p {
 		}
 		.entry-12 .myindex {
 		margin-top: -21px;
-		margin-left: 4px;
+		margin-left: -21px;
 		background-image: url(img/buble.png);
 		background-repeat: no-repeat;
 		width: 16px;
@@ -662,18 +692,150 @@ footer p {
 		
 		#word-wrapper { 
 		min-height: 150px;
-		border: 1px dashed #306;
-		margin-top: -30px;}
+		 
+		margin-top: -142px;
+		margin-left: -20px;
+		}
+		#word-descript {margin-top: 13px;}
 		
 		#word-wrapper h4{
 			font-size: 15px;
 			font-weight: bold;
-			line-height: 1;
+			line-height: 2;
 			text-shadow: 0px 1px 0px rgb(202, 198, 198);
 	
 	}
 		
-		#word-title {float:left;}
-		#word-table {float:left;}
+		#word-title {}
 		
+		#message_for_cross, #message_for_word {
+		min-height: 34px;
 		
+		font-size: 13px;
+		color: red;
+		line-height: 1.5;
+		text-shadow: 1px 0px 0px rgb(197, 196, 196);	
+		padding-top: 10px;	
+		}
+		#message_crossword {
+		height: 56px;
+		width: 365px;
+		float:left;
+		line-height: 1.3;
+		}
+		.floatleft { float: left;}
+		#message_button  {
+		
+		text-align:right;
+		height: 50px;
+		line-height: 5;
+		float: left;
+		 
+		
+		}
+		#message_button button {
+			
+		background-color: #808080;
+		border: 2px solid #636363;
+		width: 65px !important;
+		display: inline-block;
+
+		color: white;
+		font-size: 15px;
+		font-weight: bold;
+		font-family: 'PT Sans', sans-serif;
+
+		cursor: pointer;
+		-webkit-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+			
+		}
+		#tip_button input{
+			
+		background-color: #808080;
+		border: 2px solid #636363;
+		width: 140px;
+		display: inline-block;
+
+		color: white !important;
+		font-size: 15px;
+		font-weight: bold;
+		font-family: 'PT Sans', sans-serif;
+
+		cursor: pointer;
+		line-height: 1.4;
+		 -webkit-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+		
+			
+		}
+		#tip_button input{
+	-webkit-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+	}
+		
+		#puzzle-wrapper .entry-21 input{
+			
+		
+		}
+		
+		#puzzle-wrapper .entry-21 .myindex { display:none;}
+		
+		.buttonnone { display: none;}
+		
+		#tip_crossword {float:left; font-family: 'PT Sans', sans-serif !important; text-shadow: 0px 0px 0px white;}
+		
+		 
+		
+/* = register form ----------------------------------------------- */
+
+.formleft, .formrigth { float:left; width: 320px;}
+.formleft { margin-right: 75px; margin-left: 80px;}
+.formleft input, .formrigth input { background-color: #E9DACB; border: 2px solid #B4A99F;}
+.formleft label, .formrigth label { font-weight: bold; text-shadow: 0px 0px 0px;}
+.formleft select, .formrigth select { width: 167px !important; background-color: #E9DACB; border: 2px solid #B4A99F;}
+.form-select6 { margin-right: -50px; margin-bottom: 50px !important;}
+.form-select6 label { width: 182px !important;}
+
+.form-select5 { margin-bottom: 41px !important;}
+.formleft p, .formrigth p{ margin-bottom: 6px; line-height: 2;}
+.form-email , .form-input4{ margin-bottom: 42px !important;}
+.form-submit input { 
+		margin-left: 111px;
+		background-color: #808080;
+		border: 2px solid #636363;
+		 
+		 
+
+		color: white;
+		
+		font-weight: bold;
+		 
+
+		cursor: pointer;
+		line-height: 1.4;
+}
+.refid_none {display: none;}
+.send-confirmation-email { text-align: center;}
+		
+/*--------------  winners ----------------------------------*/
+
+.ul_winner {margin-top: 25px; color:#4C4C4C;}
+#win .prompt {letter-spacing: 0;}
+#win1 {margin-top: -6px;}
+.wintitle {margin-top: 70px;}
+/*-----------------------------------------*/
+
+#who_asked {margin-bottom: 5px;}
+#question {width: 379px;}
+
+/*---------- update ----------------------*/
+#myanswer {
+font-size: 15px !important; /* monin */
+}

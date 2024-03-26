@@ -57,8 +57,15 @@
 
 <!--[if lt IE 9]>
 <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
-<style type="text/css">
 
+<![endif]-->
+
+<!--[if lte IE 9]>
+<style type="text/css">
+#user_reg input[type="submit"] {
+  margin-left: 10px !important;
+}
+.prompt{ letter-spacing: 1px;}
 </style>
 <![endif]-->
 
@@ -88,6 +95,7 @@ var MyJ = jQuery;
 	wp_head();
 ?>
 
+<!--<script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script>-->
 
 
 
@@ -98,8 +106,7 @@ var MyJ = jQuery;
 <script src="<?php echo get_template_directory_uri(); ?>/js/jquery.blockUI.js"></script>-->
 
 <script src="<?php echo get_template_directory_uri(); ?>/js/jquery.qtip.js"></script>
-
-
+ 
  
 
 
@@ -116,7 +123,10 @@ var MyJ = jQuery;
         
         
         <div id="zero">
-        <?php crossword_rating(); ?>
+        <?php crossword_rating();
+			 // echo '<pre>' . crossword_rating(). '</pre>';
+			 // echo '<pre>' .my_action_callback(). '</pre>';
+		 ?>
         </div>
         
         <!-- timer widget  -->
@@ -128,9 +138,10 @@ var MyJ = jQuery;
             
             <?php // убираем пробелы из таймера
 			 $str = get_field( 'timer' , 'option' );$n_str = str_replace(" ","",$str);
+			 //echo $str;
 			 ?>
              <!-- запускаем таймер  --> 
-        	<p><?php echo do_shortcode('[countdown date='.$n_str.' offset=2][dhmtimer][after]конкурс закончен[/countdown]'); ?></p>
+        	<p><?php echo do_shortcode('[countdown date='.$n_str.' offset=3][dhmtimer][after]конкурс закончен[/countdown]'); ?></p>
             
            
             
