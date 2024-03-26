@@ -622,10 +622,73 @@ footer p {
 		#puzzle-clues {
 			font-size: 14px; /* = monin 5-04-13 */
 		}
-/* remove 29-04-13 -------------------*/
+		.entry-17 .myindex {
+		margin-top: -49px;
+		margin-left: -21px;
+		background-image: url(img/buble.png);
+		background-repeat: no-repeat;
+		width: 16px;
+		height: 18px;
+		text-align: center;
+		color: white !important;
+		font-size: 9px !important;
+		line-height: 1.7;
 		
+		}
+		/* = buble left ----------------------------------------------- */
+		.entry-1 .myindex, .entry-4 .myindex, .entry-8 .myindex, .entry-10 .myindex, .entry-13 .myindex, .entry-18 .myindex, .entry-16 .myindex{
+			margin-left: -51px;
+			margin-top: 6px;
+			background-image: url(img/buble_r.png);
+			background-repeat: no-repeat;
+			width: 20px;
+			height: 16px;
+			text-align: center;
+			color: white !important;
+			font-size: 9px !important;
+			line-height: 1.7;
+			background-position: right;
+		}
+		/* = buble top ----------------------------------------------- */
+		.entry-2 .myindex, .entry-3 .myindex, .entry-5 .myindex, .entry-6 .myindex, .entry-7 .myindex, .entry-9 .myindex, .entry-11 .myindex, .entry-14 .myindex, .entry-15 .myindex, .entry-19 .myindex {
+		margin-top: -21px;
+		margin-left: -21px;
+		background-image: url(img/buble.png);
+		background-repeat: no-repeat;
+		width: 16px;
+		height: 18px;
+		text-align: center;
+		color: white !important;
+		font-size: 9px !important;
+		line-height: 1.7;
 		
-/* remove 29-04-13 -------------------*/
+		}
+		 .entry-13 .myindex, .entry-20 .myindex {
+			margin-left: -51px;
+			margin-top: 6px;
+			background-image: url(img/buble_r.png);
+			background-repeat: no-repeat;
+			width: 20px;
+			height: 16px;
+			text-align: center;
+			color: white !important;
+			font-size: 9px !important;
+			line-height: 1.7;
+			background-position: right;
+		}
+		.entry-12 .myindex {
+		margin-top: -21px;
+		margin-left: -21px;
+		background-image: url(img/buble.png);
+		background-repeat: no-repeat;
+		width: 16px;
+		height: 18px;
+		text-align: center;
+		color: white !important;
+		font-size: 9px !important;
+		line-height: 1.7;
+		
+		}
 		
 		#word-wrapper { 
 		min-height: 150px;
@@ -872,4 +935,6 @@ width: 552px !important;}
 	margin-right: 55px;
 	text-decoration: underline;
 }
+
+/* -- menu for 7 -----------------------------*/
 .jqueryslidemenu ul li {padding-right: 23px;}

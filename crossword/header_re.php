@@ -100,7 +100,7 @@ var MyJ = jQuery;
 
 
 
-<!--<script src="<?php echo get_template_directory_uri(); ?>/js/myjquery.js"></script>-->
+<script src="<?php echo get_template_directory_uri(); ?>/js/myjquery.js"></script>
 
 <!--<script src="<?php echo get_template_directory_uri(); ?>/js/jquery.crossword.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/script.js"></script>

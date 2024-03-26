@@ -14,7 +14,16 @@
 							// id for permalink crossword-1 
 							 if (get_field('crossword', 'option')==1)
 							{
-							$side = 1;	
+							
+							
+							?>
+                       <!-- <script src="<?php echo get_template_directory_uri(); ?>/js/jquery.crossword.js"></script>
+							<script src="<?php echo get_template_directory_uri(); ?>/js/script.js"></script>--> 
+							<?php
+							
+													
+							
+								
 							//echo 'кроссворд 1';
 							$the_slug = 'crossword-1';
 							$args=array('name' => $the_slug,'post_type' => 'page');
@@ -23,9 +32,7 @@
 							}
 							// id for permalink crossword-2
 							 elseif (get_field('crossword', 'option')==2)
-							{
-							$side = 2;
-							//echo 'кроссворд 2';
+							{//echo 'кроссворд 2';
 							$the_slug = 'crossword-2';
 							$args=array('name' => $the_slug,'post_type' => 'page');
 							$my_posts = get_posts($args);
@@ -33,9 +40,7 @@
 							}
 							// id for permalink crossword-3
 							elseif (get_field('crossword', 'option')==3)
-							{
-							$side = 3;
-							//echo 'кроссворд 3';
+							{//echo 'кроссворд 3';
 							$the_slug = 'crossword-3';
 							$args=array('name' => $the_slug,'post_type' => 'page');
 							$my_posts = get_posts($args);
@@ -59,17 +64,7 @@
 				</div><!-- #wrap -->
 			</div> <!-- #content_left -->
             
-            <?php
-				   if ($side ==1) {
-				get_sidebar('right');
-			} else if ($side ==2) {
-				get_sidebar('right2');
-			} else if ($side ==3) {
-				get_sidebar('right3');
-			}		
-				
-				
-			  ?>
+            <?php get_sidebar('right'); ?>
             
 		</div><!-- #primary -->
         

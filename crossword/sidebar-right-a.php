@@ -3,7 +3,7 @@
 
        
        
-          <img style="margin-top: 100px;" src="<?php bloginfo('template_url'); ?>/img/answers-1.png" >    
+          <img style="margin-top: 100px;" src="<?php bloginfo('template_url'); ?>/img/answers-2.png" >    
       
  	
 

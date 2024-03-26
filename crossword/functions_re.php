@@ -300,20 +300,14 @@ if ( in_array( 'subscriber', $user_t->roles ) || in_array( 'administrator', $use
 			$word = $word1 + $word2 + $word3;
 			update_user_meta($user_id_sinevo, 'word_rating', $word);
 			
-			
-			//----------------
 			//вычисляем потраченные баллы 
             $minus1 = get_user_meta( $user_id_sinevo, 'minus_1', true );
-			$minus2 = get_user_meta( $user_id_sinevo, 'minus_2', true );
-			$minus3 = get_user_meta( $user_id_sinevo, 'minus_3', true );
 			$minus = get_user_meta( $user_id_sinevo, 'minus', true );
 			
 			$minus = $minus + $minus1 + $minus2 + $minus3;
 			update_user_meta($user_id_sinevo, 'minus_1', 0);
-			update_user_meta($user_id_sinevo, 'minus_2', 0);
-			update_user_meta($user_id_sinevo, 'minus_3', 0);
 			update_user_meta($user_id_sinevo, 'minus', $minus);
-			//----------------				
+			//----------------			
 			
 			
 			
@@ -374,46 +368,17 @@ function select_crossword() {
 function my_scripts_method() {
 	
 		if ((select_crossword()== 1)) {
-		
 		wp_enqueue_script('jquery_crossword', get_template_directory_uri() . '/js/jquery.crossword.js', __FILE__ );
 		wp_enqueue_script('script', get_template_directory_uri() . '/js/script.js', __FILE__ );
-		wp_enqueue_script('myjquery', get_template_directory_uri() . '/js/myjquery.js', __FILE__ );
-		wp_register_style('cross1-style',  get_template_directory_uri() . '/css/cross1.css', __FILE__ );
-        wp_enqueue_style( 'cross1-style' );
-		
-		$translation_array = array('all_minus' => crossword_rating(), 'opt' => select_crossword(), 'ajaxurl' => admin_url( 'admin-ajax.php' ));
-		wp_localize_script( 'jquery_crossword', 'object_crossword', $translation_array );
-		
-		} else 
-		if ((select_crossword()== 2)) {
-		
-		wp_enqueue_script('jquery_crossword2', get_template_directory_uri() . '/js/jquery.crossword2.js', __FILE__ );
-		wp_enqueue_script('script2', get_template_directory_uri() . '/js/script2.js', __FILE__ );
-		wp_enqueue_script('myjquery2', get_template_directory_uri() . '/js/myjquery2.js', __FILE__ );
-		wp_register_style('cross2-style',  get_template_directory_uri() . '/css/cross2.css', __FILE__ );
-        wp_enqueue_style( 'cross2-style' );
-		
-		$translation_array = array('all_minus' => crossword_rating(), 'opt' => select_crossword(), 'ajaxurl' => admin_url( 'admin-ajax.php' ));
-		wp_localize_script( 'jquery_crossword2', 'object_crossword', $translation_array );
-		
-		} else 
-		if ((select_crossword()== 3)) {
-		
-		wp_enqueue_script('jquery_crossword3', get_template_directory_uri() . '/js/jquery.crossword3.js', __FILE__ );
-		wp_enqueue_script('script3', get_template_directory_uri() . '/js/script3.js', __FILE__ );
-		wp_enqueue_script('myjquery3', get_template_directory_uri() . '/js/myjquery3.js', __FILE__ );
-		wp_register_style('cross3-style',  get_template_directory_uri() . '/css/cross3.css', __FILE__ );
-        wp_enqueue_style( 'cross3-style' );
-		
-		$translation_array = array('all_minus' => crossword_rating(), 'opt' => select_crossword(), 'ajaxurl' => admin_url( 'admin-ajax.php' ));
-		wp_localize_script( 'jquery_crossword3', 'object_crossword', $translation_array );
-		
 		}
 		//$user_id_sinevo = get_current_user_id();
 		//$all_rating_minus = get_user_meta( $user_id_sinevo, 'all_rating', true );
 		
+		$translation_array = array('all_minus' => crossword_rating(), 'opt' => select_crossword(), 'ajaxurl' => admin_url( 'admin-ajax.php' ));
 		
+		wp_localize_script( 'jquery_crossword', 'object_crossword', $translation_array );
 }
+
 //------------------------------------
 
  
@@ -456,26 +421,6 @@ function my_action_callback() {
 		update_user_meta($user_id_sinevo, 'pos_'.$pos, $vall);
 		//echo $all_rating ;
 		}
-		
-//------------------
-// запоминаем слова в кроссворде 2
-	$vall = ($_POST['vall2']) ;
-	$pos = intval($_POST['pos2']) ;
-	if (isset($vall)) {
-		update_user_meta($user_id_sinevo, 'pos2_'.$pos, $vall);
-		//echo $vall;
-		}
-
-		
-//------------------
-// запоминаем слова в кроссворде 3
-	$vall = ($_POST['vall3']) ;
-	$pos = intval($_POST['pos3']) ;
-	if (isset($vall)) {
-		update_user_meta($user_id_sinevo, 'pos3_'.$pos, $vall);
-		//echo $vall;
-		}
-
 
 //---------------------
 // запоминаем буквы контр слова
@@ -486,22 +431,6 @@ function my_action_callback() {
 		}	
 
 //---------------------
-// запоминаем буквы контр слова 2
-	$sword = ($_POST['sword2']) ;
-	if (isset($sword)) {
-		update_user_meta($user_id_sinevo, 'sword2', $sword);
-		//echo $sword;
-		}	
-
-//---------------------
-// запоминаем буквы контр слова 3
-	$sword = ($_POST['sword3']) ;
-	if (isset($sword)) {
-		update_user_meta($user_id_sinevo, 'sword3', $sword);
-		//echo $sword;
-		}
-		
-//---------------------
 // check
 $check = intval($_POST['check']) ;
 if (isset($check)) {	
@@ -509,22 +438,6 @@ update_user_meta($user_id_sinevo, 'check_1', 'ждет проверки');
 //echo $check;
 }
 
-//---------------------
-// check 2
-$check2 = intval($_POST['check2']) ;
-if ($check2 == 1) {	
-update_user_meta($user_id_sinevo, 'check_2', 'ждет проверки 2');
-//echo $check2;
-}
-
-
-//---------------------
-// check 3
-$check3 = intval($_POST['check3']) ;
-if ($check3 == 1) {	
-update_user_meta($user_id_sinevo, 'check_3', 'ждет проверки 3');
-//echo $check3;
-}
 
 //--------------------------------------
 // udate check cross 
@@ -571,16 +484,16 @@ if ($ft == 1) {
 	
 	if ((select_crossword()== 1)) {
 	update_user_meta($current, 'word_rating_1', 20);
-	update_user_meta($current, 'check_1', 'проверено слово');
+	update_user_meta($current, 'check_1', 'проверен');
 	} else
 	if ((select_crossword()== 2)) {
 	update_user_meta($current, 'word_rating_2', 20);
-	update_user_meta($current, 'check_2', 'проверено слово 2');
+	update_user_meta($current, 'check_2', 'проверен 2');
 	}
 	else
 	if ((select_crossword()== 3)) {
 	update_user_meta($current, 'word_rating_3', 20);
-	update_user_meta($current, 'check_3', 'проверено слово 3');
+	update_user_meta($current, 'check_3', 'проверен 3');
 	}
 	
 	
@@ -636,92 +549,6 @@ $whatever_c =0;
 		 
 		 echo $all_rating ;
 		 }
-		 
-		 
-		 //-------------- for crossword 2
-		 //crossword	and word
-	if ((select_crossword()== 2) && ($cross_rating2 != 50) && ( $whatever_c != 0)) {
-		  update_user_meta($user_id_sinevo, 'cross_2', 50);
-		  if ( $word_rating2 != 20 ) {
-			    update_user_meta($user_id_sinevo, 'word_rating_2', 20);
-				$min2 = get_user_meta( $user_id_sinevo, 'minus_2', true );
-				$word_rating2 = 20;
-		  		echo $all_rating + 50 + 20- $min2;
-		  } else {
-			  $all_rating = get_user_meta( $user_id_sinevo, 'all_rating', true );
-			  $min2 = get_user_meta( $user_id_sinevo, 'minus_2', true );
-			    echo $all_rating + 50 - $min2;;
-		  }
-		
-	}
-// only word first 
-	elseif
-		 ( (select_crossword()== 2) && ( $word_rating2 != 20)  && ( $whatever == 20) && ($cross_rating2 != 50))
-		 {
-		 update_user_meta($user_id_sinevo, 'word_rating_2', 20);
-		 $min2 = get_user_meta( $user_id_sinevo, 'minus_2', true );
-		 $word_rating2 = 20;
-		 crossword_rating();
-		  
-		 
-		 
-		 echo $all_rating + 20 - $min2;
-		 }
-		 
-		 elseif  ( (select_crossword()== 2) && ( $whatever == 20)  )
-		 {
-		 
-		 //crossword_rating();
-		  
-		 
-		 
-		 echo $all_rating ;
-		 }
-		 // -------------------end crossword 2
-		 
-//-- update 8-05-13  -------- for crossword 3
-		 //crossword	and word
-	if ((select_crossword()== 3) && ($cross_rating2 != 50) && ( $whatever_c != 0)) {
-		  update_user_meta($user_id_sinevo, 'cross_3', 50);
-		  if ( $word_rating3 != 20 ) {
-			    update_user_meta($user_id_sinevo, 'word_rating_3', 20);
-				$min3 = get_user_meta( $user_id_sinevo, 'minus_3', true );
-				$word_rating3 = 20;
-		  		echo $all_rating + 50 + 20- $min3;
-		  } else {
-			  $all_rating = get_user_meta( $user_id_sinevo, 'all_rating', true );
-			  $min3 = get_user_meta( $user_id_sinevo, 'minus_3', true );
-			    echo $all_rating + 50 - $min3;;
-		  }
-		
-	}
-// only word first 
-	elseif
-		 ( (select_crossword()== 3) && ( $word_rating2 != 20)  && ( $whatever == 20) && ($cross_rating3 != 50))
-		 {
-		 update_user_meta($user_id_sinevo, 'word_rating_3', 20);
-		 $min3 = get_user_meta( $user_id_sinevo, 'minus_3', true );
-		 $word_rating3 = 20;
-		 crossword_rating();
-		  
-		 
-		 
-		 echo $all_rating + 20 - $min3;
-		 }
-		 
-		 elseif  ( (select_crossword()== 3) && ( $whatever == 20)  )
-		 {
-		 
-		 //crossword_rating();
-		  
-		 
-		 
-		 echo $all_rating ;
-		 }
-//-- update 8-05-13  -------- for crossword 3	
-		 
-		 
-		 
 	else
 // подсказки
 	$z = intval($_POST['z']) ;			
@@ -743,42 +570,6 @@ $whatever_c =0;
 						echo $result;
 		 				exit();
 					 } 
-		else 
-		if ((select_crossword()== 2) && ( $z != 0)  ) {
-	 	  $zz =  get_user_meta( $user_id_sinevo, 'minus_2', true );
-		  if ($zz == 0) { 
-		 				update_user_meta($user_id_sinevo, 'minus_2', 5);
-						$i =  get_user_meta( $user_id_sinevo, 'all_rating', true );
-		 				$result = $i - 5;
-		 		        echo $result;
-		                exit();
-		 				
-		 			  } else
-		 				$i =  get_user_meta( $user_id_sinevo, 'all_rating', true );
-						$p = 5 + $zz;
-		 				update_user_meta($user_id_sinevo, 'minus_2', $p);
-		 				$result = $i-$p;
-						echo $result;
-		 				exit();
-					 }
-		else 
-		if ((select_crossword()== 3) && ( $z != 0)  ) {
-	 	  $zz =  get_user_meta( $user_id_sinevo, 'minus_3', true );
-		  if ($zz == 0) { 
-		 				update_user_meta($user_id_sinevo, 'minus_3', 5);
-						$i =  get_user_meta( $user_id_sinevo, 'all_rating', true );
-		 				$result = $i - 5;
-		 		        echo $result;
-		                exit();
-		 				
-		 			  } else
-		 				$i =  get_user_meta( $user_id_sinevo, 'all_rating', true );
-						$p = 5 + $zz;
-		 				update_user_meta($user_id_sinevo, 'minus_3', $p);
-		 				$result = $i-$p;
-						echo $result;
-		 				exit();
-					 }
 	 
 		 else {
 			 $all_rating = get_user_meta( $user_id_sinevo, 'all_rating', true );

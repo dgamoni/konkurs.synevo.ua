@@ -678,50 +678,6 @@ $whatever_c =0;
 		 echo $all_rating ;
 		 }
 		 // -------------------end crossword 2
-		 
-//-- update 8-05-13  -------- for crossword 3
-		 //crossword	and word
-	if ((select_crossword()== 3) && ($cross_rating2 != 50) && ( $whatever_c != 0)) {
-		  update_user_meta($user_id_sinevo, 'cross_3', 50);
-		  if ( $word_rating3 != 20 ) {
-			    update_user_meta($user_id_sinevo, 'word_rating_3', 20);
-				$min3 = get_user_meta( $user_id_sinevo, 'minus_3', true );
-				$word_rating3 = 20;
-		  		echo $all_rating + 50 + 20- $min3;
-		  } else {
-			  $all_rating = get_user_meta( $user_id_sinevo, 'all_rating', true );
-			  $min3 = get_user_meta( $user_id_sinevo, 'minus_3', true );
-			    echo $all_rating + 50 - $min3;;
-		  }
-		
-	}
-// only word first 
-	elseif
-		 ( (select_crossword()== 3) && ( $word_rating2 != 20)  && ( $whatever == 20) && ($cross_rating3 != 50))
-		 {
-		 update_user_meta($user_id_sinevo, 'word_rating_3', 20);
-		 $min3 = get_user_meta( $user_id_sinevo, 'minus_3', true );
-		 $word_rating3 = 20;
-		 crossword_rating();
-		  
-		 
-		 
-		 echo $all_rating + 20 - $min3;
-		 }
-		 
-		 elseif  ( (select_crossword()== 3) && ( $whatever == 20)  )
-		 {
-		 
-		 //crossword_rating();
-		  
-		 
-		 
-		 echo $all_rating ;
-		 }
-//-- update 8-05-13  -------- for crossword 3	
-		 
-		 
-		 
 	else
 // подсказки
 	$z = intval($_POST['z']) ;			
